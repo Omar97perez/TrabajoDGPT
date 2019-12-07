@@ -7,6 +7,8 @@
  */
 
 import React from 'react';
+import {Icon} from 'react-native-elements'
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -32,39 +34,22 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+          <Header
+            placement="left"
+            leftComponent={{ icon: 'menu', color: '#fff' }}
+            centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+            <Text style={styles.Titulo}>Jefe de cuadrilla</Text>
+            <Text style={styles.Titulo2}>Trabajos</Text>
+            <Text style={styles.Titulo3}>Semana Actual</Text>
+            <Icon name='rowing' />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -82,33 +67,27 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: Colors.white,
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center"
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  Titulo: {
+    color: '#343a40',
+    fontWeight: 'bold',
+    fontSize: 35,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  Titulo2: {
+    color: '#343a40',
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginTop: 20
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  Titulo3: {
+    color: '#343a40',
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginTop: 20
+  }
 });
 
 export default App;
