@@ -11,6 +11,8 @@ import {Icon} from 'react-native-elements'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
+import Inicio from './FormRegistro';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -57,24 +59,6 @@ class InicioProyecto extends React.Component {
   }
 }
 
-class FormularioRegistro extends React.Component {
-  static navigationOptions = {
-    title: 'Holaaaa',
-  };
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
-        <View style={styles.body}>
-          <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre)</Text>
-          <Button
-          title="Inicio"
-          onPress={() => navigate('Inicio')}
-        />
-        </View>
-    );
-  }
-}
-
 class FormularioEspecie extends React.Component {
   static navigationOptions = {
     title: 'Holaaaa',
@@ -102,6 +86,24 @@ class FormularioCompletarTrabajo extends React.Component {
     return (
         <View style={styles.body}>
           <Text style={styles.Titulo}>Completar Trabajo (Alberto)</Text>
+          <Button
+          title="Inicio"
+          onPress={() => navigate('Inicio')}
+        />
+        </View>
+    );
+  }
+}
+
+class FormularioRegistro extends React.Component {
+  static navigationOptions = {
+    title: 'Holaaaa',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+        <View style={styles.body}>
+          <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre)</Text>
           <Button
           title="Inicio"
           onPress={() => navigate('Inicio')}
