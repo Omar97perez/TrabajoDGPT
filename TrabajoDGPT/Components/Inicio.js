@@ -1,46 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import {Icon} from 'react-native-elements'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-
-import Inicio from './FormRegistro';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Button,
+  TextInput,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-class InicioProyecto extends React.Component {
+class FormularioLogin extends React.Component {
   static navigationOptions = {
     headerTitle: 'AppVistamientos',
-    headerRight: () => (
-      <Button
-        onPress={() => alert('This is a button!')}
-        title="Info"
-        color="#fff"
-      />
-    ),
     headerStyle: {
       backgroundColor: 'dodgerblue',
     },
@@ -52,32 +30,102 @@ class InicioProyecto extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <View style={styles.body}>
+        <View style={styles.bodyBlue, styles.body}>
+          <View style={styles.bodyWhite, styles.body}>
+            <Text style={styles.Titulo}>Login</Text>
+            <Text style={styles.Titulo3}>Usuario</Text>
+            <Text style={styles.margenTopMenos8}></Text>
+            <TextInput
+                style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+                // onChangeText={text => onChangeText(text)}
+                // value={value}
+              />
+            <Text style={styles.Titulo3}>Contraseña</Text>
+            <Text style={styles.margenTopMenos8}></Text>
+            <TextInput
+                style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+                // onChangeText={text => onChangeText(text)}
+                // value={value}
+              />
+            <Text style={styles.margenTop10}></Text>
+            <Button
+              title="Login"
+              onPress={() => navigate('Inicio')}
+            />
+          </View>
+        </View>
+    );
+  }
+}
+
+class InicioProyecto extends React.Component {
+  static navigationOptions = {
+      headerTitle: 'AppVistamientos',
+      headerRight: () => (
+        <Button
+          onPress={() => alert('This is a button!')}
+          title="Info"
+          color="#fff"
+        />
+      ),
+      headerStyle: {
+        backgroundColor: 'dodgerblue',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    };
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: ['', 'DIA', 'ACCION', 'LUGAR'],
+      tableData: [
+        ['1', '2', 'Quemar', 'A'],
+        ['a', '3', 'Limpiar', 'B'],
+        ['1', '4', 'Fumigar', 'C'],
+        ['a', '5', 'Desbrozar', 'D']
+      ]
+    }
+  }
+ 
+  render() {
+    const state = this.state;
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={styles.container}>
         <Text style={styles.Titulo}>Inicio</Text>
         <Text style={styles.Titulo}>(Alex)</Text>
-          <Icon
-            reverse
-            name='g-translate'
-            type='ionicon'
-            color='dodgerblue'
-            onPress={() => navigate('FormComplTrabajo')}
-          />
+        <Text style={styles.margenTop10}></Text>
+        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
+          <Rows data={state.tableData} textStyle={styles.text}/>
+        </Table>
+        <Icon
+          reverse
+          name='g-translate'
+          type='ionicon'
+          color='dodgerblue'
+          onPress={() => navigate('FormComplTrabajo')}
+          style={styles.margenTop20}
+        />
+        <Text style={styles.margenTop10}></Text>
         <Button
           title="Nueva Especie"
           onPress={() => navigate('FormEspecie')}
         />
-
+        <Text style={styles.margenTop10}></Text>
         <Button
           title="Nuevo Registro"
           onPress={() => navigate('FormRegistro')}
         />
-
-        <Button
-          title="Trabajo Completado"
-          onPress={() => navigate('FormComplTrabajo')}
-        />
-        </View>
-    );
+        <Text style={styles.margenTop10}></Text>
+      <Button
+        title="Trabajo Completado"
+        onPress={() => navigate('FormComplTrabajo')}
+      />
+      </View>
+    )
   }
 }
 
@@ -98,10 +146,33 @@ class FormularioEspecie extends React.Component {
         <View style={styles.body}>
           <Text style={styles.Titulo}>Nueva Especie</Text>
           <Text style={styles.Titulo}>(Omar)</Text>
+          <Text style={styles.Titulo3}>Nombre Cuadrilla</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.Titulo3}>Lugar Avistamiento</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+
+          <Text style={styles.Titulo3}>Imagen</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 150, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.margenTop10}></Text>
           <Button
-          title="Guardar"
-          onPress={() => navigate('Inicio')}
-        />
+            title="Guardar"
+            onPress={() => navigate('Inicio')}
+          />
         </View>
     );
   }
@@ -124,6 +195,22 @@ class FormularioCompletarTrabajo extends React.Component {
         <View style={styles.body}>
           <Text style={styles.Titulo}>Trabajo Completado</Text>
           <Text style={styles.Titulo}>(Alberto)</Text>
+          <Text style={styles.Titulo3}>Fecha</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+
+          <Text style={styles.Titulo3}>Observaciones</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 150, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.margenTop10}></Text>
           <Button
           title="Guardar"
           onPress={() => navigate('Inicio')}
@@ -150,6 +237,28 @@ class FormularioRegistro extends React.Component {
         <View style={styles.body}>
           <Text style={styles.Titulo}>Modificar/Crear Trabajo </Text>
           <Text style={styles.Titulo}>(Pierre)</Text>
+          <Text style={styles.Titulo3}>Fecha</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.Titulo3}>Acccón</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.Titulo3}>Lugar</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.margenTop10}></Text>
           <Button
           title="Guardar"
           onPress={() => navigate('Inicio')}
@@ -189,10 +298,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     marginTop: 20
+  },
+  margenTopMenos8: {
+    marginTop: -8
+  },
+  margenTop10: {
+    paddingTop: 10
+  },
+  margenTop20: {
+    paddingTop: 20
+  },
+  container: { 
+    flex: 1, 
+    padding: 16, 
+    paddingTop: 30, 
+    backgroundColor: '#fff'
+  },
+  head: { 
+    height: 40, 
+    backgroundColor: 'dodgerblue'
+  },
+  text: { 
+    margin: 6 
+  },
+  bodyWhite: { 
+    backgroundColor: 'white'
+  },
+  bodyBlue: { 
+    backgroundColor: 'red'
   }
 });
 
 const MainNavigator = createStackNavigator({
+  Login: {screen: FormularioLogin},
   Inicio: {screen: InicioProyecto},
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
