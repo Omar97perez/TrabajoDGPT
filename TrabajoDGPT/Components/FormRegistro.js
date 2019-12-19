@@ -29,7 +29,7 @@ class FormularioRegistro extends React.Component {
       const {navigate} = this.props.navigation;
       return (
           <View style={styles.body}>
-            <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre)</Text>
+            <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre2)</Text>
             <Button
             title="Inicio"
             onPress={() => navigate('Inicio')}
@@ -38,3 +38,5 @@ class FormularioRegistro extends React.Component {
       );
     }
   }
+
+  export default FormularioRegistro;  

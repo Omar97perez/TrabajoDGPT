@@ -33,13 +33,35 @@ import {
 
 class InicioProyecto extends React.Component {
   static navigationOptions = {
-    title: 'Welcome',
+    headerTitle: 'AppVistamientos',
+    headerRight: () => (
+      <Button
+        onPress={() => alert('This is a button!')}
+        title="Info"
+        color="#fff"
+      />
+    ),
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.body}>
-        <Text style={styles.Titulo}>Inicio (Alex)</Text>
+        <Text style={styles.Titulo}>Inicio</Text>
+        <Text style={styles.Titulo}>(Alex)</Text>
+          <Icon
+            reverse
+            name='g-translate'
+            type='ionicon'
+            color='dodgerblue'
+            onPress={() => navigate('FormComplTrabajo')}
+          />
         <Button
           title="Nueva Especie"
           onPress={() => navigate('FormEspecie')}
@@ -61,15 +83,23 @@ class InicioProyecto extends React.Component {
 
 class FormularioEspecie extends React.Component {
   static navigationOptions = {
-    title: 'Holaaaa',
+    title: 'Nueva Especie',
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
         <View style={styles.body}>
-          <Text style={styles.Titulo}>Nueva Especie (Omar)</Text>
+          <Text style={styles.Titulo}>Nueva Especie</Text>
+          <Text style={styles.Titulo}>(Omar)</Text>
           <Button
-          title="Inicio"
+          title="Guardar"
           onPress={() => navigate('Inicio')}
         />
         </View>
@@ -79,15 +109,23 @@ class FormularioEspecie extends React.Component {
 
 class FormularioCompletarTrabajo extends React.Component {
   static navigationOptions = {
-    title: 'Holaaaa',
+    title: 'Trabajo Completado',
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
         <View style={styles.body}>
-          <Text style={styles.Titulo}>Completar Trabajo (Alberto)</Text>
+          <Text style={styles.Titulo}>Trabajo Completado</Text>
+          <Text style={styles.Titulo}>(Alberto)</Text>
           <Button
-          title="Inicio"
+          title="Guardar"
           onPress={() => navigate('Inicio')}
         />
         </View>
@@ -97,15 +135,23 @@ class FormularioCompletarTrabajo extends React.Component {
 
 class FormularioRegistro extends React.Component {
   static navigationOptions = {
-    title: 'Holaaaa',
+    headerTitle: 'Crear/Modificar Trabajo',
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
   render() {
     const {navigate} = this.props.navigation;
     return (
         <View style={styles.body}>
-          <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre)</Text>
+          <Text style={styles.Titulo}>Modificar/Crear Trabajo </Text>
+          <Text style={styles.Titulo}>(Pierre)</Text>
           <Button
-          title="Inicio"
+          title="Guardar"
           onPress={() => navigate('Inicio')}
         />
         </View>
