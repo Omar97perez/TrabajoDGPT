@@ -2,41 +2,78 @@ import React from 'react';
 import {Icon} from 'react-native-elements'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Button,
+  TextInput,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+    return (
+        <View style={styles.body}>
+          <Text style={styles.Titulo}>Modificar/Crear Trabajo </Text>
+          <Text style={styles.Titulo}>(Pierre)</Text>
+          <Text style={styles.Titulo3}>Fecha</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.Titulo3}>Acccón</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.Titulo3}>Lugar</Text>
+          <Text style={styles.margenTopMenos8}></Text>
+          <TextInput
+              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          <Text style={styles.margenTop10}></Text>
+          <Button
+          title="Guardar"
+        //   onPress={() => navigate('Inicio')}
+        />
+        </View>
+    )
+};
 
-class FormularioRegistro extends React.Component {
-    static navigationOptions = {
-      title: 'Holaaaa',
-    };
-    render() {
-      const {navigate} = this.props.navigation;
-      return (
-          <View style={styles.body}>
-            <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre2)</Text>
-            <Button
-            title="Inicio"
-            onPress={() => navigate('Inicio')}
-          />
-          </View>
-      );
-    }
-  }
+const styles = StyleSheet.create({
+    body: {
+      backgroundColor: Colors.white,
+      flex: 1, 
+      justifyContent: "center", 
+      alignItems: "center"
+    },
+    Titulo: {
+      color: '#343a40',
+      fontWeight: 'bold',
+      fontSize: 35,
+    },
+    Titulo2: {
+      color: '#343a40',
+      fontWeight: 'bold',
+      fontSize: 30,
+      marginTop: 20
+    },
+    Titulo3: {
+      color: '#343a40',
+      fontWeight: 'bold',
+      fontSize: 25,
+      marginTop: 20
+    },
+  });
 
-  export default FormularioRegistro;  
+export default App;  
