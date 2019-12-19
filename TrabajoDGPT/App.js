@@ -8,6 +8,8 @@
 
 import React from 'react';
 import {Icon} from 'react-native-elements'
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import {
   SafeAreaView,
@@ -16,6 +18,7 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import {
@@ -26,36 +29,87 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header
-            placement="left"
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
-          />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <Text style={styles.Titulo}>Jefe de cuadrilla</Text>
-            <Text style={styles.Titulo2}>Trabajos</Text>
-            <Text style={styles.Titulo3}>Semana Actual</Text>
-            <Icon name='rowing' />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+class InicioProyecto extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={styles.body}>
+        <Text style={styles.Titulo}>Inicio (Alex)</Text>
+        <Button
+          title="Nueva Especie"
+          onPress={() => navigate('FormEspecie')}
+        />
+
+        <Button
+          title="Nuevo Registro"
+          onPress={() => navigate('FormRegistro')}
+        />
+
+        <Button
+          title="Trabajo Completado"
+          onPress={() => navigate('FormComplTrabajo')}
+        />
+        </View>
+    );
+  }
+}
+
+class FormularioRegistro extends React.Component {
+  static navigationOptions = {
+    title: 'Holaaaa',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+        <View style={styles.body}>
+          <Text style={styles.Titulo}>Modificar/Crear Trabajo (Pierre)</Text>
+          <Button
+          title="Inicio"
+          onPress={() => navigate('Inicio')}
+        />
+        </View>
+    );
+  }
+}
+
+class FormularioEspecie extends React.Component {
+  static navigationOptions = {
+    title: 'Holaaaa',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+        <View style={styles.body}>
+          <Text style={styles.Titulo}>Nueva Especie (Omar)</Text>
+          <Button
+          title="Inicio"
+          onPress={() => navigate('Inicio')}
+        />
+        </View>
+    );
+  }
+}
+
+class FormularioCompletarTrabajo extends React.Component {
+  static navigationOptions = {
+    title: 'Holaaaa',
+  };
+  render() {
+    const {navigate} = this.props.navigation;
+    return (
+        <View style={styles.body}>
+          <Text style={styles.Titulo}>Completar Trabajo (Alberto)</Text>
+          <Button
+          title="Inicio"
+          onPress={() => navigate('Inicio')}
+        />
+        </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -89,5 +143,14 @@ const styles = StyleSheet.create({
     marginTop: 20
   }
 });
+
+const MainNavigator = createStackNavigator({
+  Inicio: {screen: InicioProyecto},
+  FormEspecie: {screen: FormularioEspecie},
+  FormRegistro: {screen: FormularioRegistro},
+  FormComplTrabajo: {screen: FormularioCompletarTrabajo},
+});
+
+const App = createAppContainer(MainNavigator);
 
 export default App;
