@@ -10,8 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@expo/samples": "^3.0.3",
     "expo": "^36.0.2",
     "firebase": "^7.6.2",
+    "jest-expo": "^36.0.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-elements": "^1.2.7",

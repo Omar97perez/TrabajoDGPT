@@ -3,7 +3,6 @@ import {Icon} from 'react-native-elements'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import { Table, Row, Rows } from 'react-native-table-component';
-// import { ImagePicker } from 'expo';
 import firebase from 'firebase';
 
 
@@ -122,30 +121,6 @@ const App = () => {
           // To Remove a user
           firebase.database().ref('NewAnimal/Animal515241').remove();
         }
-
-        onChooseImagePress = async () => {
-          let result = await ImagePicker.launchCameraAsync();
-          //let result = await ImagePicker.launchImageLibraryAsync();
-      
-          if (!result.cancelled) {
-            this.uploadImage(result.uri, "test-image")
-              .then(() => {
-                Alert.alert("Success");
-              })
-              .catch((error) => {
-                Alert.alert(error);
-              });
-          }
-        }
-      
-        uploadImage = async (uri, imageName) => {
-          const response = await fetch(uri);
-          const blob = await response.blob();
-      
-          var ref = firebase.storage().ref().child("images/" + imageName);
-          return ref.put(blob);
-        }
-      
         
 
     return (
@@ -174,8 +149,6 @@ const App = () => {
               onChangeText={text => onChangeImage(text)}
               value={Image}
             />
-
-          {/* <Button title="Choose image..." onPress={this.onChooseImagePress} /> */}
 
           <Text  style={styles.margenTop10}></Text>
           <Button
