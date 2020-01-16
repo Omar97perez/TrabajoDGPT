@@ -17,7 +17,9 @@
     "react-native-table-component": "^1.2.1",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^1.10.3"
+    "react-navigation-stack": "^1.10.3",
+    "rn-nodeify": "^10.2.0",
+    "three": "^0.112.1"
   },
   "devDependencies": {
     "@babel/core": "7.7.5",
