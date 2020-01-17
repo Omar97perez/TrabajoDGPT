@@ -1,79 +1,97 @@
-import React from 'react';
-import {Icon} from 'react-native-elements'
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { Table, Row, Rows } from 'react-native-table-component';
+import React, {Component} from 'react';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+
+import SaveButton from './Header/SaveButton';
+
+import MostradorFecha from './components/MostradorFecha';
+import SelectAccion from './components/SelectAccion';
+import SelectLugar from './components/SelectLugar';
+import SelectFecha from './components/SelectFecha';
 
 import {
   StyleSheet,
+  ScrollView,
   View,
   Text,
-  Button,
-  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-const App = () => {
-    return (
-        <View style={styles.body}>
-          <Text style={styles.Titulo}>Modificar/Crear Trabajo </Text>
-          <Text style={styles.Titulo}>(Pierre)</Text>
-          <Text style={styles.Titulo3}>Fecha</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.Titulo3}>Acccón</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.Titulo3}>Lugar</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.margenTop10}></Text>
-          <Button
-          title="Guardar"
-        //   onPress={() => navigate('Inicio')}
-        />
-        </View>
-    )
-};
+import {ListItem, Icon} from 'react-native-elements';
 
 const styles = StyleSheet.create({
-    body: {
-      backgroundColor: Colors.white,
-      flex: 1, 
-      justifyContent: "center", 
-      alignItems: "center"
-    },
-    Titulo: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 35,
-    },
-    Titulo2: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 30,
-      marginTop: 20
-    },
-    Titulo3: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 25,
-      marginTop: 20
-    },
-  });
+  mainContainer: {
+    backgroundColor: 'white',
+  },
+  scrollViewContainer: {},
+  button: {
+    padding: 10,
+  },
+});
 
-export default App;  
+class FormRegistro extends Component {
+  static navigationOptions = {
+    title: 'Nuevo Registro',
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerRight: () => <SaveButton />,
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+      show: false,
+      accion: '',
+      lugar: '',
+    };
+
+    this.setDate = this.setDate.bind(this);
+    this.showDatePicker = this.showDatePicker.bind(this);
+  }
+
+  setDate = (event, date) => {
+    let aDate = date || this.state.date;
+
+    this.setState({
+      date: aDate,
+      show: false,
+    });
+  };
+
+  showDatePicker = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
+  render() {
+    const {show, date} = this.state;
+
+    return (
+      <View>
+        <ScrollView
+          style={styles.mainContainer}
+          // eslint-disable-next-line react-native/no-inline-styles
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}>
+          <SelectLugar />
+          <SelectFecha
+            date={date}
+            onTouch={this.showDatePicker}
+            doesShow={show}
+            changed={this.setDate}
+          />
+          <SelectAccion />
+        </ScrollView>
+      </View>
+    );
+  }
+}
+
+export default FormRegistro;
