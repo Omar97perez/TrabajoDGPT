@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableHighlight, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 const SaveButton = props => {
@@ -9,11 +9,14 @@ const SaveButton = props => {
       style={{
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingRight: 15,
+        paddingRight: 10,
       }}>
-      <TouchableHighlight>
-        <Icon name="save" color="white" />
-      </TouchableHighlight>
+      <TouchableOpacity>
+        <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>
+          Guardar
+        </Text>
+        {/* <Icon name="save" color="white" /> */}
+      </TouchableOpacity>
     </View>
   );
 };

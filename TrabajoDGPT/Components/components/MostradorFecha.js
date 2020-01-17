@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
 });
 
 const MostradorFecha = props => {
+  Moment.locale('es');
   const dateText = Moment(props.date).format('dddd D MMMM YYYY');
 
   return (

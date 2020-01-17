@@ -14,16 +14,14 @@ const SelectFecha = props => {
   );
 
   return (
-    <View>
-      <ListItem
-        key="fecha"
-        containerStyle={{paddingVertical: 20}}
-        title={myPicker}
-        // rightTitle={} TimePicker para Android para seleccionar hora
-        leftIcon={{name: 'access-time'}}
-        bottomDivider
-      />
-    </View>
+    <ListItem
+      key="fecha"
+      containerStyle={{paddingVertical: 20}}
+      title={myPicker}
+      // rightTitle={} TimePicker para Android para seleccionar hora
+      leftIcon={{name: 'access-time'}}
+      bottomDivider
+    />
   );
 };
 

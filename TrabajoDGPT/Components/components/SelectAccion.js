@@ -12,15 +12,13 @@ const SelectAccion = props => {
   );
 
   return (
-    <View>
-      <ListItem
-        key="accion"
-        containerStyle={{paddingVertical: 10}}
-        title={myPicker}
-        leftIcon={{name: 'call-to-action'}}
-        bottomDivider
-      />
-    </View>
+    <ListItem
+      key="accion"
+      containerStyle={{paddingVertical: 10, paddingRight: 0}}
+      title={myPicker}
+      leftIcon={{name: 'call-to-action'}}
+      bottomDivider
+    />
   );
 };
 

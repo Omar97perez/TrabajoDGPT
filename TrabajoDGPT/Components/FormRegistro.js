@@ -1,30 +1,16 @@
 import React, {Component} from 'react';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 import SaveButton from './Header/SaveButton';
 
-import MostradorFecha from './components/MostradorFecha';
 import SelectAccion from './components/SelectAccion';
 import SelectLugar from './components/SelectLugar';
 import SelectFecha from './components/SelectFecha';
 
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-
-import {ListItem, Icon} from 'react-native-elements';
+import {StyleSheet, ScrollView, View} from 'react-native';
 
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
-  },
-  scrollViewContainer: {},
-  button: {
-    padding: 10,
   },
 });
 
@@ -34,7 +20,7 @@ class FormRegistro extends Component {
     headerStyle: {
       backgroundColor: 'dodgerblue',
     },
-    headerRight: () => <SaveButton />,
+    headerRight: <SaveButton />,
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
@@ -73,13 +59,9 @@ class FormRegistro extends Component {
     const {show, date} = this.state;
 
     return (
-      <View>
-        <ScrollView
-          style={styles.mainContainer}
-          // eslint-disable-next-line react-native/no-inline-styles
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}>
+      <ScrollView style={styles.mainContainer}>
+        <View>
+          <SelectAccion />
           <SelectLugar />
           <SelectFecha
             date={date}
@@ -87,9 +69,8 @@ class FormRegistro extends Component {
             doesShow={show}
             changed={this.setDate}
           />
-          <SelectAccion />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }
