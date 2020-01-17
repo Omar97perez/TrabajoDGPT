@@ -8,6 +8,9 @@ import FormularioRegistro from './FormRegistro';
 import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
+import auth, {firebase} from '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
+
 import {
   StyleSheet,
   View,
@@ -20,6 +23,44 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 class FormularioLogin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      user: null,
+    };
+  }
+
+  signIn = (email, password) => {
+    const user = auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(
+        () => {
+          alert('Succesful login');
+          this.setState({
+            user: user,
+          });
+          this.props.navigation.navigate('Inicio');
+        },
+        err => {
+          console.log(err);
+        },
+      );
+  };
+
+  onChangeEmail = email => {
+    this.setState({
+      email: email,
+    });
+  };
+
+  onChangePassword = password => {
+    this.setState({
+      password: password,
+    });
+  };
+
   static navigationOptions = {
     headerTitle: 'AppVistamientos',
     headerStyle: {
@@ -30,8 +71,11 @@ class FormularioLogin extends React.Component {
       fontWeight: 'bold',
     },
   };
+
   render() {
     const {navigate} = this.props.navigation;
+    const {email, password} = this.state;
+
     return (
       <View style={(styles.bodyBlue, styles.body)}>
         <View style={(styles.bodyWhite, styles.body)}>
@@ -45,8 +89,8 @@ class FormularioLogin extends React.Component {
               borderColor: 'gray',
               borderWidth: 1,
             }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
+            onChangeText={text => this.onChangeEmail(text)}
+            value={email}
           />
           <Text style={styles.Titulo3}>Contraseña</Text>
           <Text style={styles.margenTopMenos8}></Text>
@@ -57,11 +101,11 @@ class FormularioLogin extends React.Component {
               borderColor: 'gray',
               borderWidth: 1,
             }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
+            onChangeText={text => this.onChangePassword(text)}
+            value={password}
           />
           <Text style={styles.margenTop10}></Text>
-          <Button title="Login" onPress={() => navigate('Inicio')} />
+          <Button title="Login" onPress={() => this.signIn(email, password)} />
         </View>
       </View>
     );
@@ -120,7 +164,6 @@ class InicioProyecto extends React.Component {
         <Icon
           reverse
           name="g-translate"
-          type="ionicon"
           color="dodgerblue"
           onPress={() => navigate('FormComplTrabajo')}
           style={styles.margenTop20}

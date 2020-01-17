@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "172424225952",
+    "firebase_url": "https://testing-dgpt.firebaseio.com",
+    "project_id": "testing-dgpt",
+    "storage_bucket": "testing-dgpt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172424225952:android:0489f7b613831c74f7d5c5",
+        "android_client_info": {
+          "package_name": "com.trabajogcce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172424225952-i9qu4hmoc571od14ibohdvhbfn2ss2s5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trabajogcce",
+            "certificate_hash": "14d5f7af0f11d8bc5908187842a07bef396768e1"
+          }
+        },
+        {
+          "client_id": "172424225952-l15iepnprfro24qbn217vu0704goa42o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRpjiei5d09OXDJa8EHeWNus5iJcUAdTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172424225952-l15iepnprfro24qbn217vu0704goa42o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
