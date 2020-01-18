@@ -7,7 +7,7 @@ import Inicio from './Components/Inicio';
 
 import {name as appName} from './app.json';
 
-import database, {firebase} from '@react-native-firebase/database';
+import {firebase} from '@react-native-firebase/app';
  
 firebase.database().setPersistenceEnabled(true);
 firebase.database().setPersistenceCacheSizeBytes(2000000);

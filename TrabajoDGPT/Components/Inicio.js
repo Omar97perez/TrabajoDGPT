@@ -36,10 +36,10 @@ class FormularioLogin extends React.Component {
   }
 
   signIn = (email, password) => {
-    const user = auth()
+    auth()
       .signInWithEmailAndPassword(email, password)
       .then(
-        () => {
+        user => {
           alert('Succesful login');
           this.setState({
             user: user,

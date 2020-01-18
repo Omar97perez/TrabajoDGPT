@@ -46,16 +46,13 @@ class FormRegistro extends Component {
   componentDidMount() {
     const ref = database().ref('/actions');
     let list = [];
-    const databaseSnapshot = ref.once('value').then(
+    ref.once('value').then(
       snapshot => {
         list = snapshot.val().slice();
         this.setState({
           actions: list,
           loadingActions: false,
         });
-      },
-      err => {
-        console.log(err);
       },
       err => {
         console.log(err);
