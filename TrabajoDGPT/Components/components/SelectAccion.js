@@ -3,11 +3,18 @@ import {View, Picker} from 'react-native';
 import {ListItem} from 'react-native-elements';
 
 const SelectAccion = props => {
-  const myPicker = (
-    <Picker selectedValue="default">
-      <Picker.Item label="Seleccione una Acción" value="default" />
-      <Picker.Item label="This is a label" value="test1" />
-      <Picker.Item label="This is another label" value="test2" />
+  let myPicker = (
+    <Picker
+      enabled={!props.loading}
+      selectedValue={props.selected}
+      onValueChange={props.changed}>
+      {!props.loading ? (
+        props.list.map((element, idx) => {
+          return <Picker.Item key={idx} label={element} value={idx} />;
+        })
+      ) : (
+        <Picker.Item label="Seleccione una acción" value="default" />
+      )}
     </Picker>
   );
 

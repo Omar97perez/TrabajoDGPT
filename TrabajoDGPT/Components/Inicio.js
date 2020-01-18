@@ -1,6 +1,10 @@
 import React from 'react';
 import {Icon} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
+import {
+  createAppContainer,
+  StackActions,
+  NavigationActions,
+} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {Table, Row, Rows} from 'react-native-table-component';
 
@@ -9,7 +13,6 @@ import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
 import auth, {firebase} from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
 
 import {
   StyleSheet,
@@ -41,7 +44,11 @@ class FormularioLogin extends React.Component {
           this.setState({
             user: user,
           });
-          this.props.navigation.navigate('Inicio');
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'Inicio'})],
+          });
+          this.props.navigation.dispatch(resetAction);
         },
         err => {
           console.log(err);

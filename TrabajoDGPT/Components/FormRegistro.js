@@ -8,6 +8,8 @@ import SelectFecha from './components/SelectFecha';
 
 import {StyleSheet, ScrollView, View} from 'react-native';
 
+import database, {firebase} from '@react-native-firebase/database';
+
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
@@ -32,13 +34,41 @@ class FormRegistro extends Component {
     this.state = {
       date: new Date(),
       show: false,
-      accion: '',
-      lugar: '',
+      actions: [],
+      loadingActions: true,
+      selectedAction: 0,
     };
 
     this.setDate = this.setDate.bind(this);
     this.showDatePicker = this.showDatePicker.bind(this);
   }
+
+  componentDidMount() {
+    const ref = database().ref('/actions');
+    let list = [];
+    const databaseSnapshot = ref.once('value').then(
+      snapshot => {
+        list = snapshot.val().slice();
+        this.setState({
+          actions: list,
+          loadingActions: false,
+        });
+      },
+      err => {
+        console.log(err);
+      },
+      err => {
+        console.log(err);
+      },
+    );
+  }
+
+  setAction = (event, action) => {
+    let aAction = action;
+    this.setState({
+      selectedAction: aAction,
+    });
+  };
 
   setDate = (event, date) => {
     let aDate = date || this.state.date;
@@ -56,12 +86,19 @@ class FormRegistro extends Component {
   };
 
   render() {
-    const {show, date} = this.state;
+    const {show, date, loadingActions, actions, selectedAction} = this.state;
+
+    if (!loadingActions) console.log(actions);
 
     return (
       <ScrollView style={styles.mainContainer}>
         <View>
-          <SelectAccion />
+          <SelectAccion
+            list={this.state.actions}
+            loading={loadingActions}
+            changed={this.setAction}
+            selected={selectedAction}
+          />
           <SelectLugar />
           <SelectFecha
             date={date}
