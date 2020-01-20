@@ -1,6 +1,13 @@
 import React from 'react';
-import {Picker} from 'react-native';
+import {Picker, StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 10,
+    paddingRight: 0,
+  },
+});
 
 const SelectAccion = props => {
   let myPicker = (
@@ -21,7 +28,7 @@ const SelectAccion = props => {
   return (
     <ListItem
       key="accion"
-      containerStyle={{paddingVertical: 10, paddingRight: 0}}
+      containerStyle={styles.container}
       title={myPicker}
       leftIcon={{name: 'call-to-action'}}
       bottomDivider

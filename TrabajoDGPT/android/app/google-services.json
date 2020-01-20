@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "172424225952",
-    "firebase_url": "https://testing-dgpt.firebaseio.com",
-    "project_id": "testing-dgpt",
-    "storage_bucket": "testing-dgpt.appspot.com"
+    "project_number": "610317697724",
+    "firebase_url": "https://agei-699fd.firebaseio.com",
+    "project_id": "agei-699fd",
+    "storage_bucket": "agei-699fd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:172424225952:android:0489f7b613831c74f7d5c5",
+        "mobilesdk_app_id": "1:610317697724:android:141c2dc266ee14974346b9",
         "android_client_info": {
           "package_name": "com.trabajogcce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "172424225952-i9qu4hmoc571od14ibohdvhbfn2ss2s5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.trabajogcce",
-            "certificate_hash": "14d5f7af0f11d8bc5908187842a07bef396768e1"
-          }
-        },
-        {
-          "client_id": "172424225952-l15iepnprfro24qbn217vu0704goa42o.apps.googleusercontent.com",
+          "client_id": "610317697724-5eqll4l5ihbfh3fothi3utda8cdubtts.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCRpjiei5d09OXDJa8EHeWNus5iJcUAdTI"
+          "current_key": "AIzaSyCHt_5qvA4kh6FkNauqw9liLX-u5Tibofk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "172424225952-l15iepnprfro24qbn217vu0704goa42o.apps.googleusercontent.com",
+              "client_id": "610317697724-5eqll4l5ihbfh3fothi3utda8cdubtts.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

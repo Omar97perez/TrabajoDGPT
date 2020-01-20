@@ -1,13 +1,22 @@
 import React from 'react';
-import {View, Picker} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20,
+  },
+  title: {
+    paddingLeft: 10,
+  },
+});
 
 const SelectLugar = props => {
   return (
     <ListItem
       key="lugar"
-      containerStyle={{paddingVertical: 20}}
-      titleStyle={{paddingLeft: 10}}
+      containerStyle={styles.container}
+      titleStyle={styles.title}
       title="Lugar"
       leftIcon={{name: 'location-on'}}
       bottomDivider

@@ -1,7 +1,13 @@
 import React from 'react';
-import {View, Picker} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import MostradorFecha from './MostradorFecha';
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20,
+  },
+});
 
 const SelectFecha = props => {
   const myPicker = (
@@ -16,7 +22,7 @@ const SelectFecha = props => {
   return (
     <ListItem
       key="fecha"
-      containerStyle={{paddingVertical: 20}}
+      containerStyle={styles.container}
       title={myPicker}
       // rightTitle={} TimePicker para Android para seleccionar hora
       leftIcon={{name: 'access-time'}}

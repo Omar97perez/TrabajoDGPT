@@ -85,7 +85,9 @@ class FormRegistro extends Component {
   render() {
     const {show, date, loadingActions, actions, selectedAction} = this.state;
 
-    if (!loadingActions) console.log(actions);
+    if (!loadingActions) {
+      console.log(actions);
+    }
 
     return (
       <ScrollView style={styles.mainContainer}>
