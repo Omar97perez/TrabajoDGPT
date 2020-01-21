@@ -8,6 +8,8 @@ import SelectFecha from './components/SelectFecha';
 
 import {StyleSheet, ScrollView, View} from 'react-native';
 
+import {StackActions} from 'react-navigation';
+
 import database, {firebase} from '@react-native-firebase/database';
 
 const styles = StyleSheet.create({
@@ -22,7 +24,7 @@ class FormRegistro extends Component {
     headerStyle: {
       backgroundColor: 'dodgerblue',
     },
-    headerRight: <SaveButton />,
+    headerRight: <SaveButton text="Guardar" />,
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
@@ -36,14 +38,12 @@ class FormRegistro extends Component {
       show: false,
       actions: [],
       loadingActions: true,
-      selectedAction: 0,
+      selectedAction: 'Seleccione una acción',
     };
 
     this.setDate = this.setDate.bind(this);
     this.showDatePicker = this.showDatePicker.bind(this);
-  }
 
-  componentDidMount() {
     const ref = database().ref('/actions');
     let list = [];
     ref.once('value').then(
@@ -61,10 +61,11 @@ class FormRegistro extends Component {
   }
 
   setAction = (event, action) => {
-    let aAction = action;
+    let aAction = action || this.state.selectedAction;
     this.setState({
       selectedAction: aAction,
     });
+    console.log('Estado cambiado');
   };
 
   setDate = (event, date) => {
@@ -82,6 +83,17 @@ class FormRegistro extends Component {
     });
   };
 
+  goToActionView = () => {
+    const goToAction = StackActions.push({
+      routeName: 'SelectAccionView',
+      params: {
+        changed: (event, element) => this.setAction(event, element),
+        actions: this.state.actions,
+      },
+    });
+    this.props.navigation.dispatch(goToAction);
+  };
+
   render() {
     const {show, date, loadingActions, actions, selectedAction} = this.state;
 
@@ -94,9 +106,10 @@ class FormRegistro extends Component {
         <View>
           <SelectAccion
             list={this.state.actions}
+            selected={this.state.selectedAction}
             loading={loadingActions}
             changed={this.setAction}
-            selected={selectedAction}
+            navigation={this.goToActionView}
           />
           <SelectLugar />
           <SelectFecha

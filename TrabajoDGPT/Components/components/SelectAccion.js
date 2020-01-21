@@ -1,37 +1,32 @@
-import React from 'react';
-import {Picker, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
+
+import database, {firebase} from '@react-native-firebase/database';
+
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
-    paddingRight: 0,
+    paddingVertical: 20,
+  },
+  textStyle: {
+    paddingVertical: 0,
+    paddingLeft: 10,
   },
 });
 
 const SelectAccion = props => {
-  let myPicker = (
-    <Picker
-      enabled={!props.loading}
-      selectedValue={props.selected}
-      onValueChange={props.changed}>
-      {!props.loading ? (
-        props.list.map((element, idx) => {
-          return <Picker.Item key={idx} label={element} value={idx} />;
-        })
-      ) : (
-        <Picker.Item label="Seleccione una acción" value="default" />
-      )}
-    </Picker>
-  );
-
+  
   return (
     <ListItem
       key="accion"
       containerStyle={styles.container}
-      title={myPicker}
+      title={props.selected}
+      titleStyle={styles.textStyle}
       leftIcon={{name: 'call-to-action'}}
+      onPress={props.navigation}
       bottomDivider
+      chevron
     />
   );
 };

@@ -9,6 +9,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {Table, Row, Rows} from 'react-native-table-component';
 
 import FormularioRegistro from './FormRegistro';
+import SelectAccionVista from './components/SelectAccionVista';
 import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
@@ -24,6 +25,7 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import SelectAccion from './components/SelectAccion';
 
 class FormularioLogin extends React.Component {
   constructor(props) {
@@ -294,6 +296,7 @@ const MainNavigator = createStackNavigator({
   Inicio: {screen: InicioProyecto},
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
+  SelectAccionView: {screen: SelectAccionVista},
   FormComplTrabajo: {screen: FormularioCompletarTrabajo},
 });
 
