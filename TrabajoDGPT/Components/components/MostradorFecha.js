@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import Moment from 'moment/min/moment-with-locales';
 
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
@@ -20,14 +20,14 @@ const MostradorFecha = props => {
         <Text style={{fontSize: 15}}>{dateText}</Text>
       </TouchableOpacity>
 
-      {props.doesShow && (
-        <DateTimePicker
-          value={props.date}
-          mode="date"
-          display="default"
-          onChange={props.changed}
-        />
-      )}
+      <DateTimePicker
+        isVisible={props.doesShow}
+        value={props.date}
+        mode="date"
+        display="default"
+        onConfirm={props.changed}
+        onCancel={props.changed}
+      />
     </View>
   );
 };

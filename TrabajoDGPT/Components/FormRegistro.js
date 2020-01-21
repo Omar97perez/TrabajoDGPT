@@ -68,7 +68,7 @@ class FormRegistro extends Component {
     console.log('Estado cambiado');
   };
 
-  setDate = (event, date) => {
+  setDate = date => {
     let aDate = date || this.state.date;
 
     this.setState({
@@ -95,11 +95,7 @@ class FormRegistro extends Component {
   };
 
   render() {
-    const {show, date, loadingActions, actions, selectedAction} = this.state;
-
-    if (!loadingActions) {
-      console.log(actions);
-    }
+    const {show, date, loadingActions} = this.state;
 
     return (
       <ScrollView style={styles.mainContainer}>
