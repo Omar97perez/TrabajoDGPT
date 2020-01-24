@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "610317697724",
+    "firebase_url": "https://agei-699fd.firebaseio.com",
+    "project_id": "agei-699fd",
+    "storage_bucket": "agei-699fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610317697724:android:141c2dc266ee14974346b9",
+        "android_client_info": {
+          "package_name": "com.trabajogcce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610317697724-5eqll4l5ihbfh3fothi3utda8cdubtts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHt_5qvA4kh6FkNauqw9liLX-u5Tibofk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610317697724-5eqll4l5ihbfh3fothi3utda8cdubtts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

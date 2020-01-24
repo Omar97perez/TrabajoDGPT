@@ -46,25 +46,6 @@ const App = () => {
                 }
             );
         }
-        //Actualizar registro sustituit "004" por el id del registro
-        function EnviarRegistro(){
-          var config = {
-            apiKey: "AIzaSyAb8b7clfYFCk_J_uLm0K1P1xBpcp8N67w",
-            authDomain: "agei-699fd.firebaseapp.com",
-            databaseURL: "https://agei-699fd.firebaseio.com",
-            projectId: "agei-699fd",
-            storageBucket: "agei-699fd.appspot.com",
-            messagingSenderId: "610317697724",
-            appId: "1:610317697724:web:1e4766cea11751984346b9",
-            measurementId: "G-VW8R06DJRZ"
-          };
-          firebase.initializeApp(config);
-          
-          // To Update a user
-          firebase.database().ref('users/004').update({
-              name: 'Pheng Sengvuthy'
-          });
-        }
 
         //Actualizar registro 
         function ActualizarRegistro(){
