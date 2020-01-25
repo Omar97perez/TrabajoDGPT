@@ -1,79 +1,123 @@
-import React from 'react';
-import {Icon} from 'react-native-elements'
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { Table, Row, Rows } from 'react-native-table-component';
+import React, {Component} from 'react';
 
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  TextInput,
-} from 'react-native';
+import SaveButton from './Header/SaveButton';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-const App = () => {
-    return (
-        <View style={styles.body}>
-          <Text style={styles.Titulo}>Modificar/Crear Trabajo </Text>
-          <Text style={styles.Titulo}>(Pierre)</Text>
-          <Text style={styles.Titulo3}>Fecha</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.Titulo3}>Acccón</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.Titulo3}>Lugar</Text>
-          <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
-            />
-          <Text style={styles.margenTop10}></Text>
-          <Button
-          title="Guardar"
-        //   onPress={() => navigate('Inicio')}
-        />
-        </View>
-    )
-};
+import SelectAccion from './components/SelectAccion';
+import SelectLugar from './components/SelectLugar';
+import SelectFecha from './components/SelectFecha';
+
+import {StyleSheet, ScrollView, View} from 'react-native';
+
+import {StackActions} from 'react-navigation';
+
+import database, {firebase} from '@react-native-firebase/database';
 
 const styles = StyleSheet.create({
-    body: {
-      backgroundColor: Colors.white,
-      flex: 1, 
-      justifyContent: "center", 
-      alignItems: "center"
-    },
-    Titulo: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 35,
-    },
-    Titulo2: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 30,
-      marginTop: 20
-    },
-    Titulo3: {
-      color: '#343a40',
-      fontWeight: 'bold',
-      fontSize: 25,
-      marginTop: 20
-    },
-  });
+  mainContainer: {
+    backgroundColor: 'white',
+  },
+});
 
-export default App;  
+class FormRegistro extends Component {
+  static navigationOptions = {
+    title: 'Nuevo Registro',
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerRight: <SaveButton text="Guardar" />,
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+      show: false,
+      actions: [],
+      loadingActions: true,
+      selectedAction: 'Seleccione una acción',
+    };
+
+    this.setDate = this.setDate.bind(this);
+    this.showDatePicker = this.showDatePicker.bind(this);
+
+    const ref = database().ref('/actions');
+    let list = [];
+    ref.once('value').then(
+      snapshot => {
+        list = snapshot.val().slice();
+        this.setState({
+          actions: list,
+          loadingActions: false,
+        });
+      },
+      err => {
+        console.log(err);
+      },
+    );
+  }
+
+  setAction = (event, action) => {
+    let aAction = action || this.state.selectedAction;
+    this.setState({
+      selectedAction: aAction,
+    });
+    console.log('Estado cambiado');
+  };
+
+  setDate = date => {
+    let aDate = date || this.state.date;
+
+    this.setState({
+      date: aDate,
+      show: false,
+    });
+  };
+
+  showDatePicker = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
+  goToActionView = () => {
+    const goToAction = StackActions.push({
+      routeName: 'SelectAccionView',
+      params: {
+        changed: (event, element) => this.setAction(event, element),
+        actions: this.state.actions,
+      },
+    });
+    this.props.navigation.dispatch(goToAction);
+  };
+
+  render() {
+    const {show, date, loadingActions} = this.state;
+
+    return (
+      <ScrollView style={styles.mainContainer}>
+        <View>
+          <SelectAccion
+            list={this.state.actions}
+            selected={this.state.selectedAction}
+            loading={loadingActions}
+            changed={this.setAction}
+            navigation={this.goToActionView}
+          />
+          <SelectLugar />
+          <SelectFecha
+            date={date}
+            onTouch={this.showDatePicker}
+            doesShow={show}
+            changed={this.setDate}
+          />
+        </View>
+      </ScrollView>
+    );
+  }
+}
+
+export default FormRegistro;
