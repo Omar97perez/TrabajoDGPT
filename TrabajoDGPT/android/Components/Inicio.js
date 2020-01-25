@@ -22,7 +22,6 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
-  Alert
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -43,14 +42,7 @@ class FormularioLogin extends React.Component {
       .signInWithEmailAndPassword(email, password)
       .then(
         user => {
-          Alert.alert(
-            'Información',
-            'Se ha iniciado sesión correctamente.',
-            [
-              {text: 'Cerrar'},
-            ],
-            {cancelable: false},
-          );
+          alert('Succesful login');
           this.setState({
             user: user,
           });
@@ -96,7 +88,7 @@ class FormularioLogin extends React.Component {
     return (
       <View style={(styles.bodyBlue, styles.body)}>
         <View style={(styles.bodyWhite, styles.body)}>
-          <Text style={styles.Titulo}>Iniciar Sesión</Text>
+          <Text style={styles.Titulo}>Login</Text>
           <Text style={styles.Titulo3}>Usuario</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
@@ -156,7 +148,6 @@ class InicioProyecto extends React.Component {
       fontWeight: 'bold',
     },
   };
-
   constructor(props) {
     super(props);
     this.state = {

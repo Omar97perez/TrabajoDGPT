@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text, View, Button, Image, TextInput, ScrollView, Alert  } from 'react-native';
+import {StyleSheet, Text, View, Button, Image, TextInput, ScrollView  } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import SaveButton from './Header/SaveButton';
-import {Icon} from 'react-native-elements';
-
 
 
 import {
@@ -15,27 +13,36 @@ class FormNewAnimal extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const {params = {}} = navigation.state;
     return {
-      headerTitle: 'AppVistamientos',
-      headerRight: () => (
-        <Text style={{fontSize: 15, textAlign: 'center', color: 'white', paddingRight: 10}}       onPress={() =>  params.SendRegister() }>
-          Guardar
-        </Text>
-      ),
+      title: 'Nueva Especie',
       headerStyle: {
         backgroundColor: 'dodgerblue',
       },
+      headerRight: () => (
+        <Icon
+        reverse
+        name="power-settings-new"
+        color="dodgerblue"
+        style={styles.margenTop20}
+      />
+      ),
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
       },
     }
-};
+  };
 
   componentDidMount() {
-        this.props.navigation.setParams({
-          SendRegister: this.EnviarRegistro
-        });
-    }
+    this.props.navigation.setParams({
+        handleRefresh: this.refreshHandler
+    });
+}
+
+refreshHandler() {
+    alert('hello')
+    self.refs[WEBVIEW_REF].reload()
+}
+
   constructor(props) {
     super(props);
     this.state = {
@@ -71,6 +78,7 @@ class FormNewAnimal extends React.Component {
   };
 
   EnviarRegistro = () =>{
+    console.log("22222222222");
     var config = {
       apiKey: "AIzaSyAb8b7clfYFCk_J_uLm0K1P1xBpcp8N67w",
       authDomain: "agei-699fd.firebaseapp.com",
@@ -94,17 +102,10 @@ class FormNewAnimal extends React.Component {
               Imagen: this.state.filePath
           }
       );
-      Alert.alert(
-        'Información',
-        'Los datos se han introducido correctamente.',
-        [
-          {text: 'Cerrar'},
-        ],
-        {cancelable: false},
-      );
-      this.props.navigation.goBack();
   }
   
+
+
   //Actualizar registro 
   ActualizarRegistro = () =>{
     var config = {
@@ -208,6 +209,10 @@ class FormNewAnimal extends React.Component {
           />
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
+          <Button
+            title="Guardar"
+            onPress={() => this.RecogerElementos()}
+          />
         </View >
       </ScrollView>
     );
