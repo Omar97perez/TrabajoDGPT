@@ -23,17 +23,6 @@ export default class App extends React.Component {
     };
   }
 
-  static navigationOptions = {
-    title: 'Nuevo Registro',
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerRight: <SaveButton text="Guardar" />,
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
   // const [Quadrille, onChangeQuadrille] = React.useState('');
   // const [PlaceSighting, onChangePlaceSighting] = React.useState('');
 
