@@ -9,7 +9,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-class FormNewAnimal extends Component {
+class FormNewAnimal extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Nueva Especie',
@@ -35,10 +35,7 @@ class FormNewAnimal extends Component {
 
   chooseFile = () => {
     var options = {
-      title: 'Select Image',
-      customButtons: [
-        { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      ],
+      title: 'Selecione una acción',
       storageOptions: {
         skipBackup: true,
         path: 'images',

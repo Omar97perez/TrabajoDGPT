@@ -123,13 +123,22 @@ class FormularioLogin extends React.Component {
 
 class InicioProyecto extends React.Component {
   static navigationOptions = {
+    headerLeft: () => (
+      <Icon
+      reverse
+      name="menu"
+      color="dodgerblue"
+      style={styles.margenTop20}
+    />
+    ),
     headerTitle: 'AppVistamientos',
     headerRight: () => (
-      <Button
-        onPress={() => alert('This is a button!')}
-        title="Info"
-        color="#fff"
-      />
+      <Icon
+      reverse
+      name="power-settings-new"
+      color="dodgerblue"
+      style={styles.margenTop20}
+    />
     ),
     headerStyle: {
       backgroundColor: 'dodgerblue',
