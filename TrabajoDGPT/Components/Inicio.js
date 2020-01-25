@@ -7,7 +7,7 @@ import {
 } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {Table, Row, Rows} from 'react-native-table-component';
-
+import FormularioEspecie from './FormEspecie';
 import FormularioRegistro from './FormRegistro';
 import SelectAccionVista from './components/SelectAccionVista';
 import FS from './FormEspecie';
@@ -194,25 +194,6 @@ class InicioProyecto extends React.Component {
   }
 }
 
-class FormularioEspecie extends React.Component {
-  static navigationOptions = {
-    title: 'Nueva Especie',
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-  render() {
-    return (
-      <View style={styles.body}>
-        <FS></FS>
-      </View>
-    );
-  }
-}
 
 class FormularioCompletarTrabajo extends React.Component {
   static navigationOptions = {

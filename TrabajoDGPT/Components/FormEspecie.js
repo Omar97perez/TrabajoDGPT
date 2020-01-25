@@ -1,19 +1,29 @@
-/*This is an example of Image Picker in React Native*/
-import React from 'react';
-import {Icon} from 'react-native-elements'
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import { Table, Row, Rows } from 'react-native-table-component';
+import React, {Component} from 'react';
 import firebase from 'firebase';
-import {StyleSheet, Text, View, Button, Image, TextInput,ScrollView  } from 'react-native';
+import {StyleSheet, Text, View, Button, Image, TextInput, ScrollView  } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import SaveButton from './Header/SaveButton';
 
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-export default class App extends React.Component {
+class FormNewAnimal extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Nueva Especie',
+      headerStyle: {
+        backgroundColor: 'dodgerblue',
+      },
+      headerRight: <SaveButton text="Guardar" onPress={() => this.EnviarRegistro()}/>,
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,10 +32,6 @@ export default class App extends React.Component {
       PlaceSighting: ''
     };
   }
-
-  // const [Quadrille, onChangeQuadrille] = React.useState('');
-  // const [PlaceSighting, onChangePlaceSighting] = React.useState('');
-
 
   chooseFile = () => {
     var options = {
@@ -39,8 +45,6 @@ export default class App extends React.Component {
       },
     };
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
- 
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -58,10 +62,9 @@ export default class App extends React.Component {
       }
     });
   };
-  // const [Quadrille, onChangeQuadrille] = React.useState('');
-  // const [PlaceSighting, onChangePlaceSighting] = React.useState('');
 
   EnviarRegistro = () =>{
+    console.log("22222222222");
     var config = {
       apiKey: "AIzaSyAb8b7clfYFCk_J_uLm0K1P1xBpcp8N67w",
       authDomain: "agei-699fd.firebaseapp.com",
@@ -72,19 +75,24 @@ export default class App extends React.Component {
       appId: "1:610317697724:web:1e4766cea11751984346b9",
       measurementId: "G-VW8R06DJRZ"
     };
-    firebase.initializeApp(config);
+    if(!firebase.apps.length){
+      firebase.initializeApp(config);
+    }
     
     var id = "Animal" + Math.floor(Math.random() * (99 - 0 + 1) + 0) + Math.floor(Math.random() * (99 - 0 + 1) + 0) + Math.floor(Math.random() * (99 - 0 + 1) + 0);
+    
       firebase.database().ref('NewAnimal/' + id ).set(
           {
-              NombreCuadrilla: Quadrille,
-              Lugar: PlaceSighting,
-              Imagen: Image
+              NombreCuadrilla: this.state.Quadrille,
+              Lugar: this.state.PlaceSighting,
+              Imagen: this.state.filePath
           }
       );
   }
+  
 
-  //Actualizar registro sustituit "004" por el id del registro
+
+  //Actualizar registro 
   ActualizarRegistro = () =>{
     var config = {
       apiKey: "AIzaSyAb8b7clfYFCk_J_uLm0K1P1xBpcp8N67w",
@@ -98,7 +106,6 @@ export default class App extends React.Component {
     };
     firebase.initializeApp(config);
     
-    // To Update a user
     firebase.database().ref('users/004').update({
         name: 'Pheng Sengvuthy'
     });
@@ -116,6 +123,9 @@ export default class App extends React.Component {
       appId: "1:610317697724:web:1e4766cea11751984346b9",
       measurementId: "G-VW8R06DJRZ"
     };
+    if(!firebase.apps.length){
+      firebase.initializeApp(config);
+    }
 
     firebase.database().ref('NewAnimal').on('value', (data) => {
         console.log(data.toJSON());
@@ -157,8 +167,9 @@ export default class App extends React.Component {
     return (
       <ScrollView > 
         <View  style={styles.container}>
+          <Text style={styles.margenTopMenos8}></Text>
+          <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.Titulo}>Nueva Especie</Text>
-          <Text style={styles.Titulo}>(Omar)</Text>
           <Text style={styles.Titulo3}>Nombre Cuadrilla</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
@@ -173,28 +184,20 @@ export default class App extends React.Component {
               onChangeText={text => this.onChangePlaceSighting(text)}
               value={PlaceSighting}
             />
-          {/*<Image 
-          source={{ uri: this.state.filePath.path}} 
-          style={{width: 100, height: 100}} />*/}
-          {/* <Image
-            source={{
-              uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
-            }}
-            style={{ width: 100, height: 100 }}
-          /> */}
-          {/* <Text style={{ alignItems: 'center' }}>
-            {this.state.filePath.uri}
-          </Text> */}
           <Text style={styles.margenTopMenos8}></Text>
-          <Button title="Choose File" onPress={this.chooseFile.bind(this)} />
+          <Text style={styles.margenTopMenos8}></Text>
+          <Button title="Seleccionar Imagen" onPress={this.chooseFile.bind(this)} />
+          <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
           <Image
             source={{ uri: this.state.filePath.uri }}
-            style={{ width: 150, height: 150 }}
+            style={{ width: 200, height: 200 }}
           />
+          <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
           <Button
             title="Guardar"
+            onPress={() => this.RecogerElementos()}
           />
         </View >
       </ScrollView>
@@ -233,3 +236,5 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
 });
+
+export default FormNewAnimal;
