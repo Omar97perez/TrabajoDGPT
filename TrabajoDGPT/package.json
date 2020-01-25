@@ -10,14 +10,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@expo/samples": "^3.0.3",
-    "expo": "^36.0.2",
     "firebase": "^7.6.2",
-    "jest-expo": "^36.0.1",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-image-picker": "^2.0.0",
     "react-native-table-component": "^1.2.1",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
