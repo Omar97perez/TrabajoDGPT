@@ -186,14 +186,14 @@ class FormNewAnimal extends React.Component {
           <Text style={styles.Titulo3}>Nombre Cuadrilla</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
               onChangeText={text => this.onChangeQuadrille(text)}
               value={Quadrille}
             />
           <Text style={styles.Titulo3}>Lugar Avistamiento</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
-              style={{ width:350, height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
               onChangeText={text => this.onChangePlaceSighting(text)}
               value={PlaceSighting}
             />

@@ -101,7 +101,7 @@ class FormularioLogin extends React.Component {
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
             style={{
-              width: 350,
+              width: 300,
               height: 40,
               borderColor: 'gray',
               borderWidth: 1,
@@ -113,7 +113,7 @@ class FormularioLogin extends React.Component {
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
             style={{
-              width: 350,
+              width: 300,
               height: 40,
               borderColor: 'gray',
               borderWidth: 1,
@@ -122,7 +122,7 @@ class FormularioLogin extends React.Component {
             value={password}
           />
           <Text style={styles.margenTop10}></Text>
-          <Button title="Login" onPress={() => this.signIn(email, password)} />
+          <Button title="Iniciar Sesión" onPress={() => this.signIn(email, password)} />
         </View>
       </View>
     );
@@ -130,7 +130,9 @@ class FormularioLogin extends React.Component {
 }
 
 class InicioProyecto extends React.Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => {
+    const {params = {}} = navigation.state;
+    return {
     headerLeft: () => (
       <Icon
       reverse
@@ -146,6 +148,7 @@ class InicioProyecto extends React.Component {
       name="power-settings-new"
       color="dodgerblue"
       style={styles.margenTop20}
+      onPress={() =>  params.CloseSesion()}
     />
     ),
     headerStyle: {
@@ -155,7 +158,28 @@ class InicioProyecto extends React.Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-  };
+  }
+};
+
+componentDidMount() {
+  this.props.navigation.setParams({
+    CloseSesion: this.CerrarSesion
+  });
+}
+
+//Actualizar registro 
+CerrarSesion = () =>{
+  Alert.alert(
+    'Información',
+    'Se ha cerrado la sesión correctamente.',
+    [
+      {text: 'Cerrar'},
+    ],
+    {cancelable: false},
+  );
+  const {navigate} = this.props.navigation;
+  navigate('Login');
+}
 
   constructor(props) {
     super(props);
