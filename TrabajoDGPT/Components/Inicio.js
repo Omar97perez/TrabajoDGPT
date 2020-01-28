@@ -22,7 +22,7 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -46,9 +46,7 @@ class FormularioLogin extends React.Component {
           Alert.alert(
             'Información',
             'Se ha iniciado sesión correctamente.',
-            [
-              {text: 'Cerrar'},
-            ],
+            [{text: 'Cerrar'}],
             {cancelable: false},
           );
           this.setState({
@@ -122,7 +120,10 @@ class FormularioLogin extends React.Component {
             value={password}
           />
           <Text style={styles.margenTop10}></Text>
-          <Button title="Iniciar Sesión" onPress={() => this.signIn(email, password)} />
+          <Button
+            title="Iniciar Sesión"
+            onPress={() => this.signIn(email, password)}
+          />
         </View>
       </View>
     );
@@ -130,56 +131,54 @@ class FormularioLogin extends React.Component {
 }
 
 class InicioProyecto extends React.Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return {
-    headerLeft: () => (
-      <Icon
-      reverse
-      name="menu"
-      color="dodgerblue"
-      style={styles.margenTop20}
-    />
-    ),
-    headerTitle: 'AppVistamientos',
-    headerRight: () => (
-      <Icon
-      reverse
-      name="power-settings-new"
-      color="dodgerblue"
-      style={styles.margenTop20}
-      onPress={() =>  params.CloseSesion()}
-    />
-    ),
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+      headerLeft: () => (
+        <Icon
+          reverse
+          name="menu"
+          color="dodgerblue"
+          style={styles.margenTop20}
+        />
+      ),
+      headerTitle: 'AppVistamientos',
+      headerRight: () => (
+        <Icon
+          reverse
+          name="power-settings-new"
+          color="dodgerblue"
+          style={styles.margenTop20}
+          onPress={() => params.CloseSesion()}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: 'dodgerblue',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    };
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      CloseSesion: this.CerrarSesion,
+    });
   }
-};
 
-componentDidMount() {
-  this.props.navigation.setParams({
-    CloseSesion: this.CerrarSesion
-  });
-}
-
-//Actualizar registro 
-CerrarSesion = () =>{
-  Alert.alert(
-    'Información',
-    'Se ha cerrado la sesión correctamente.',
-    [
-      {text: 'Cerrar'},
-    ],
-    {cancelable: false},
-  );
-  const {navigate} = this.props.navigation;
-  navigate('Login');
-}
+  //Actualizar registro
+  CerrarSesion = () => {
+    Alert.alert(
+      'Información',
+      'Se ha cerrado la sesión correctamente.',
+      [{text: 'Cerrar'}],
+      {cancelable: false},
+    );
+    const {navigate} = this.props.navigation;
+    navigate('Login');
+  };
 
   constructor(props) {
     super(props);
@@ -235,7 +234,6 @@ CerrarSesion = () =>{
     );
   }
 }
-
 
 class FormularioCompletarTrabajo extends React.Component {
   static navigationOptions = {
