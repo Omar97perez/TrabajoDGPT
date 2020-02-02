@@ -316,13 +316,11 @@ const styles = StyleSheet.create({
 });
 
 const MainNavigator = createStackNavigator({
-  FormComplTrabajo: {screen: FormularioCompletarTrabajo},
-
   Login: {screen: FormularioLogin},
   Inicio: {screen: InicioProyecto},
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
-
+  FormComplTrabajo: {screen: FormularioCompletarTrabajo},
   SelectAccionView: {screen: SelectAccionVista},
 });
 
