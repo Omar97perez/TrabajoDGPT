@@ -182,6 +182,7 @@ android {
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
+    implementation project(':react-native-uuid-generator')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

@@ -6,10 +6,13 @@ import SelectAccion from './components/SelectAccion';
 import SelectLugar from './components/SelectLugar';
 import SelectFecha from './components/SelectFecha';
 
-import {StyleSheet, ScrollView, View} from 'react-native';
+import Moment from 'moment/min/moment-with-locales';
+
+import {Alert, StyleSheet, ScrollView, View} from 'react-native';
 
 import {StackActions} from 'react-navigation';
 
+import UUIDGenerator from 'react-native-uuid-generator';
 import database, {firebase} from '@react-native-firebase/database';
 
 const styles = StyleSheet.create({
@@ -19,16 +22,23 @@ const styles = StyleSheet.create({
 });
 
 class FormRegistro extends Component {
-  static navigationOptions = {
-    title: 'Nuevo Registro',
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerRight: <SaveButton text="Guardar" />,
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Nuevo Registro',
+      headerStyle: {
+        backgroundColor: 'dodgerblue',
+      },
+      headerRight: (
+        <SaveButton
+          text="Guardar"
+          callback={navigation.getParam('saveRegister')}
+        />
+      ),
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    };
   };
 
   constructor(props) {
@@ -39,10 +49,17 @@ class FormRegistro extends Component {
       actions: [],
       loadingActions: true,
       selectedAction: 'Seleccione una acción',
+      location: {
+        lat: 28.288718720767292,
+        lon: -16.49008141699221,
+      },
     };
+  }
 
-    this.setDate = this.setDate.bind(this);
-    this.showDatePicker = this.showDatePicker.bind(this);
+  componentDidMount() {
+    this.props.navigation.setParams({
+      saveRegister: this.saveRegister,
+    });
 
     const ref = database().ref('/actions');
     let list = [];
@@ -60,6 +77,29 @@ class FormRegistro extends Component {
     );
   }
 
+  saveRegister = async () => {
+    try {
+      const uuid = await UUIDGenerator.getRandomUUID();
+      const ref = database().ref(`/tasks/${uuid}`);
+
+      const dateText = Moment(this.state.date).format('DD/MM/YYYY');
+      await ref.set({
+        uuid: uuid,
+        action: this.state.selectedAction,
+        date: dateText,
+        location: this.state.location,
+      });
+      Alert.alert(
+        'Información',
+        'Guardado satisfactoriamente',
+        [{text: 'Cerrar'}],
+        {cancelable: false},
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   setAction = (event, action) => {
     let aAction = action || this.state.selectedAction;
     this.setState({
@@ -75,6 +115,18 @@ class FormRegistro extends Component {
       date: aDate,
       show: false,
     });
+  };
+
+  setLocation = coordinate => {
+    let newLocation = {
+      lat: coordinate.latitude,
+      lon: coordinate.longitude,
+    };
+
+    this.setState({
+      location: newLocation,
+    });
+    console.log('Location Changed');
   };
 
   showDatePicker = () => {
@@ -94,6 +146,17 @@ class FormRegistro extends Component {
     this.props.navigation.dispatch(goToAction);
   };
 
+  goToMapView = () => {
+    const goToMap = StackActions.push({
+      routeName: 'MapView',
+      params: {
+        location: this.state.location,
+        markerHandler: this.setLocation,
+      },
+    });
+    this.props.navigation.dispatch(goToMap);
+  };
+
   render() {
     const {show, date, loadingActions} = this.state;
 
@@ -107,7 +170,7 @@ class FormRegistro extends Component {
             changed={this.setAction}
             navigation={this.goToActionView}
           />
-          <SelectLugar />
+          <SelectLugar navigation={this.goToMapView} />
           <SelectFecha
             date={date}
             onTouch={this.showDatePicker}

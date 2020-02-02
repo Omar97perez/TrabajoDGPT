@@ -11,9 +11,9 @@ import FormularioEspecie from './FormEspecie';
 import FormularioCompletarTrabajo from './FormComplTrabajo';
 import FormularioRegistro from './FormRegistro';
 import SelectAccionVista from './components/SelectAccionVista';
+import MapVista from './components/MapVista';
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/Menu';
-
 import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
@@ -51,9 +51,7 @@ class FormularioLogin extends React.Component {
           Alert.alert(
             'Información',
             'Se ha iniciado sesión correctamente.',
-            [
-              {text: 'Cerrar'},
-            ],
+            [{text: 'Cerrar'}],
             {cancelable: false},
           );
           this.setState({
@@ -129,7 +127,10 @@ class FormularioLogin extends React.Component {
             value={password}
           />
           <Text style={styles.margenTop10}></Text>
-          <Button title="Iniciar Sesión" onPress={() => this.signIn(email, password)} />
+          <Button
+            title="Iniciar Sesión"
+            onPress={() => this.signIn(email, password)}
+          />
         </View>
       </View>
     );
@@ -137,7 +138,7 @@ class FormularioLogin extends React.Component {
 }
 
 class InicioProyecto extends React.Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return {
     headerLeft: () => (
@@ -175,20 +176,17 @@ componentDidMount() {
     Toggle: this.toggle
   });
 }
-
-//Actualizar registro 
-CerrarSesion = () =>{
-  Alert.alert(
-    'Información',
-    'Se ha cerrado la sesión correctamente.',
-    [
-      {text: 'Cerrar'},
-    ],
-    {cancelable: false},
-  );
-  const {navigate} = this.props.navigation;
-  navigate('Login');
-}
+  //Actualizar registro
+  CerrarSesion = () => {
+    Alert.alert(
+      'Información',
+      'Se ha cerrado la sesión correctamente.',
+      [{text: 'Cerrar'}],
+      {cancelable: false},
+    );
+    const {navigate} = this.props.navigation;
+    navigate('Login');
+  };
 
   toggle() {
     this.setState({
@@ -320,6 +318,8 @@ const MainNavigator = createStackNavigator({
   Inicio: {screen: InicioProyecto},
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
+  SelectAccionView: {screen: SelectAccionVista},
+  MapView: {screen: MapVista},
   FormComplTrabajo: {screen: FormularioCompletarTrabajo},
   SelectAccionView: {screen: SelectAccionVista},
 });

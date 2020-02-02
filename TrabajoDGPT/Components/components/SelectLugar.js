@@ -21,6 +21,7 @@ const SelectLugar = props => {
       leftIcon={{name: 'location-on'}}
       bottomDivider
       chevron
+      onPress={props.navigation}
     />
   );
 };
