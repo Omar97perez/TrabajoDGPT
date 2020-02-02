@@ -4,6 +4,9 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import { Table, Row, Rows } from 'react-native-table-component';
 import firebase from 'firebase';
+import SelectFecha from './components/SelectFecha';
+import Moment from 'moment/min/moment-with-locales';
+
 
 import {
   StyleSheet,
@@ -50,11 +53,13 @@ class Task_Completed extends Component {
     super(props);
     this.state = {
       done: false,
+      show: false,
       ready: '',
       Observation: '',
       Plot: '',
       Date: '',
       Incidence: '',
+      date: new Date(),
     }
   }
 
@@ -74,11 +79,10 @@ class Task_Completed extends Component {
     }
     
     var id = 1;
-    
     firebase.database().ref('records/' + id ).set(
         {
           TrabajoCompletado: this.state.done,
-          Date: this.state.Date,
+          Date: Moment(this.state.date).format('DD/MM/YYYY'),
           Plot: this.state.Plot,
           Observation: this.state.Observation,
           Incidence: this.state.Incidence,
@@ -128,8 +132,23 @@ class Task_Completed extends Component {
     });
   };
 
+  setDate = date => {
+    let aDate = date || this.state.date;
+
+    this.setState({
+      date: aDate,
+      show: false,
+    });
+  };
+
+  showDatePicker = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
   render(){
-    const {Observation,Plot,Incidence, Date} = this.state;
+    const {show, date,Observation,Plot,Incidence, Date} = this.state;
       return(
         <ScrollView > 
           <View style={styles.body}>
@@ -148,17 +167,16 @@ class Task_Completed extends Component {
             </Card>
             <Text style={styles.Titulo3}>Fecha</Text>
             <Text style={styles.margenTopMenos8}></Text>
-            <TextInput type="date" 
-              style= {
-                width=350,
-                height= 100, 
-                borderColor= 'gray', 
-                borderWidth= 1}  
-              id='date' 
-              placeholder='Escriba la fecha de realización' 
-              onChangeText={Date => this.onChangeDate(Date)}
-              value={Date}
-            />
+          </View>
+          <View>
+            <SelectFecha
+                date={date}
+                onTouch={this.showDatePicker}
+                doesShow={show}
+                changed={this.setDate}
+              />
+          </View>
+          <View style={styles.body}>
             <Text style={styles.Titulo3}>Parcela trabajada</Text>
             <Text style={styles.margenTopMenos8}></Text>
             <TextInput type='text' 
