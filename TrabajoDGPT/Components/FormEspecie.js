@@ -5,8 +5,6 @@ import ImagePicker from 'react-native-image-picker';
 import SaveButton from './Header/SaveButton';
 import {Icon} from 'react-native-elements';
 
-
-
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
@@ -29,13 +27,14 @@ class FormNewAnimal extends React.Component {
         fontWeight: 'bold',
       },
     }
-};
+  };
 
   componentDidMount() {
-        this.props.navigation.setParams({
-          SendRegister: this.EnviarRegistro
-        });
-    }
+    this.props.navigation.setParams({
+      SendRegister: this.EnviarRegistro
+    });
+  }
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -87,22 +86,22 @@ class FormNewAnimal extends React.Component {
     
     var id = "Animal" + Math.floor(Math.random() * (99 - 0 + 1) + 0) + Math.floor(Math.random() * (99 - 0 + 1) + 0) + Math.floor(Math.random() * (99 - 0 + 1) + 0);
     
-      firebase.database().ref('NewAnimal/' + id ).set(
-          {
-              NombreCuadrilla: this.state.Quadrille,
-              Lugar: this.state.PlaceSighting,
-              Imagen: this.state.filePath
-          }
-      );
-      Alert.alert(
-        'Información',
-        'Los datos se han introducido correctamente.',
-        [
-          {text: 'Cerrar'},
-        ],
-        {cancelable: false},
-      );
-      this.props.navigation.goBack();
+    firebase.database().ref('NewAnimal/' + id ).set(
+        {
+            NombreCuadrilla: this.state.Quadrille,
+            Lugar: this.state.PlaceSighting,
+            Imagen: this.state.filePath
+        }
+    );
+    Alert.alert(
+      'Información',
+      'Los datos se han introducido correctamente.',
+      [
+        {text: 'Cerrar'},
+      ],
+      {cancelable: false},
+    );
+    this.props.navigation.goBack();
   }
   
   //Actualizar registro 
@@ -189,14 +188,14 @@ class FormNewAnimal extends React.Component {
               style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
               onChangeText={text => this.onChangeQuadrille(text)}
               value={Quadrille}
-            />
+          />
           <Text style={styles.Titulo3}>Lugar Avistamiento</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
               style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
               onChangeText={text => this.onChangePlaceSighting(text)}
               value={PlaceSighting}
-            />
+          />
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
           <Button title="Seleccionar Imagen" onPress={this.chooseFile.bind(this)} />

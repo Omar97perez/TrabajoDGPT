@@ -8,6 +8,7 @@ import {
 import {createStackNavigator} from 'react-navigation-stack';
 import {Table, Row, Rows} from 'react-native-table-component';
 import FormularioEspecie from './FormEspecie';
+import FormularioCompletarTrabajo from './FormComplTrabajo';
 import FormularioRegistro from './FormRegistro';
 import SelectAccionVista from './components/SelectAccionVista';
 import SideMenu from 'react-native-side-menu';
@@ -254,22 +255,6 @@ CerrarSesion = () =>{
   }
 }
 
-class FormularioCompletarTrabajo extends React.Component {
-  static navigationOptions = {
-    title: 'Trabajo Completado',
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-  render() {
-    return <FCT></FCT>;
-  }
-}
-
 const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.white,
@@ -300,6 +285,9 @@ const styles = StyleSheet.create({
   margenTopMenos8: {
     marginTop: -8,
   },
+  margenTop3: {
+    paddingTop: 3,
+  },
   margenTop10: {
     paddingTop: 10,
   },
@@ -328,12 +316,14 @@ const styles = StyleSheet.create({
 });
 
 const MainNavigator = createStackNavigator({
+  FormComplTrabajo: {screen: FormularioCompletarTrabajo},
+
   Login: {screen: FormularioLogin},
   Inicio: {screen: InicioProyecto},
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
+
   SelectAccionView: {screen: SelectAccionVista},
-  FormComplTrabajo: {screen: FormularioCompletarTrabajo},
 });
 
 const App = createAppContainer(MainNavigator);
