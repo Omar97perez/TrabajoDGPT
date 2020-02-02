@@ -11,6 +11,8 @@ import FormularioEspecie from './FormEspecie';
 import FormularioRegistro from './FormRegistro';
 import SelectAccionVista from './components/SelectAccionVista';
 import MapVista from './components/MapVista';
+import SideMenu from 'react-native-side-menu';
+import Menu from './components/Menu';
 import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
@@ -24,6 +26,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -53,11 +56,13 @@ class FormularioLogin extends React.Component {
           this.setState({
             user: user,
           });
-          const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName: 'Inicio'})],
-          });
-          this.props.navigation.dispatch(resetAction);
+          // const resetAction = StackActions.reset({
+          //   index: 0,
+          //   actions: [NavigationActions.navigate({routeName: 'Inicio', email: email})],
+          // });
+          // this.props.navigation.dispatch(resetAction);
+          const {navigate} = this.props.navigation;
+          navigate('Inicio', {email:email})
         },
         err => {
           console.log(err);
@@ -94,7 +99,7 @@ class FormularioLogin extends React.Component {
 
     return (
       <View style={(styles.bodyBlue, styles.body)}>
-        <View style={(styles.bodyWhite, styles.body)}>
+       <View style={(styles.bodyWhite, styles.body)}>
           <Text style={styles.Titulo}>Iniciar Sesión</Text>
           <Text style={styles.Titulo3}>Usuario</Text>
           <Text style={styles.margenTopMenos8}></Text>
@@ -135,40 +140,41 @@ class InicioProyecto extends React.Component {
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return {
-      headerLeft: () => (
-        <Icon
-          reverse
-          name="menu"
-          color="dodgerblue"
-          style={styles.margenTop20}
-        />
-      ),
-      headerTitle: 'AppVistamientos',
-      headerRight: () => (
-        <Icon
-          reverse
-          name="power-settings-new"
-          color="dodgerblue"
-          style={styles.margenTop20}
-          onPress={() => params.CloseSesion()}
-        />
-      ),
-      headerStyle: {
-        backgroundColor: 'dodgerblue',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    };
-  };
-
-  componentDidMount() {
-    this.props.navigation.setParams({
-      CloseSesion: this.CerrarSesion,
-    });
+    headerLeft: () => (
+      <Icon
+      reverse
+      name="menu"
+      color="dodgerblue"
+      style={styles.margenTop20}
+      onPress={params.Toggle}
+    />
+    ),
+    headerTitle: 'AppVistamientos',
+    headerRight: () => (
+      <Icon
+      reverse
+      name="power-settings-new"
+      color="dodgerblue"
+      style={styles.margenTop20}
+      onPress={() =>  params.CloseSesion()}
+    />
+    ),
+    headerStyle: {
+      backgroundColor: 'dodgerblue',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   }
+};
 
+componentDidMount() {
+  this.props.navigation.setParams({
+    CloseSesion: this.CerrarSesion,
+    Toggle: this.toggle
+  });
+}
   //Actualizar registro
   CerrarSesion = () => {
     Alert.alert(
@@ -181,9 +187,30 @@ class InicioProyecto extends React.Component {
     navigate('Login');
   };
 
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
+  updateMenuState(isOpen) {
+    this.setState({ isOpen });
+  }
+
+  onMenuItemSelected = item =>
+  {
+    const {navigate} = this.props.navigation;
+    navigate(item);
+  };
+
   constructor(props) {
     super(props);
+
+    this.toggle = this.toggle.bind(this);
     this.state = {
+      email: this.props.navigation.state.params.email,
+      isOpen: false,
+      selectedItem: 'FormComplTrabajo',
       tableHead: ['', 'DIA', 'ACCION', 'LUGAR'],
       tableData: [
         ['1', '2', 'Quemar', 'A'],
@@ -196,42 +223,31 @@ class InicioProyecto extends React.Component {
 
   render() {
     const state = this.state;
-    const {navigate} = this.props.navigation;
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} email={this.state.email} />;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.body}>
-          <Text style={styles.Titulo}>Inicio</Text>
-          <Text style={styles.Titulo}>(Alex)</Text>
-        </View>
-        <Text style={styles.margenTop10}></Text>
-        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-          <Row
-            data={state.tableHead}
-            style={styles.head}
-            textStyle={styles.text}
-          />
-          <Rows data={state.tableData} textStyle={styles.text} />
-        </Table>
-        <Icon
-          reverse
-          name="g-translate"
-          color="dodgerblue"
-          onPress={() => navigate('FormComplTrabajo')}
-          style={styles.margenTop20}
-        />
-        <Text style={styles.margenTop10}></Text>
-        <Button title="Nueva Especie" onPress={() => navigate('FormEspecie')} />
-        <Text style={styles.margenTop10}></Text>
-        <Button
-          title="Nuevo Registro"
-          onPress={() => navigate('FormRegistro')}
-        />
-        <Text style={styles.margenTop10}></Text>
-        <Button
-          title="Trabajo Completado"
-          onPress={() => navigate('FormComplTrabajo')}
-        />
-      </View>
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isOpen}
+        onChange={isOpen => this.updateMenuState(isOpen)}
+      >    
+        <View style={styles.container}>
+          <View style={styles.center}>
+            <Text style={styles.margenTopMenos8}></Text>
+           <Text style={styles.Titulo}>Inicio</Text>
+          </View>
+          <Text style={styles.margenTopMenos8}></Text>
+          <Text style={styles.margenTop10}></Text>
+            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+              <Row
+                data={state.tableHead}
+                style={styles.head}
+                textStyle={styles.text}
+              />
+              <Rows data={state.tableData} textStyle={styles.text} />
+            </Table>
+        </View>    
+      </SideMenu>
     );
   }
 }
@@ -253,17 +269,13 @@ class FormularioCompletarTrabajo extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
   body: {
     backgroundColor: Colors.white,
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  center: {
     alignItems: 'center',
   },
   Titulo: {

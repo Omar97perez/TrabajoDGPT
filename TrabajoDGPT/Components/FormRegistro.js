@@ -94,6 +94,17 @@ class FormRegistro extends Component {
     this.props.navigation.dispatch(goToAction);
   };
 
+  goToMapView = () => {
+    const goToMap = StackActions.push({
+      routeName: 'MapView',
+      params: {
+        changed: (event, element) => this.setAction(event, element),
+        actions: this.state.actions,
+      },
+    });
+    this.props.navigation.dispatch(goToMap);
+  }
+
   render() {
     const {show, date, loadingActions} = this.state;
 
@@ -107,7 +118,7 @@ class FormRegistro extends Component {
             changed={this.setAction}
             navigation={this.goToActionView}
           />
-          <SelectLugar />
+          <SelectLugar navigation={this.goToMapView}/>
           <SelectFecha
             date={date}
             onTouch={this.showDatePicker}
