@@ -10,6 +10,7 @@ import {Table, Row, Rows} from 'react-native-table-component';
 import FormularioEspecie from './FormEspecie';
 import FormularioRegistro from './FormRegistro';
 import SelectAccionVista from './components/SelectAccionVista';
+import MapVista from './components/MapVista';
 import FS from './FormEspecie';
 import FCT from './FormComplTrabajo';
 
@@ -318,6 +319,7 @@ const MainNavigator = createStackNavigator({
   FormEspecie: {screen: FormularioEspecie},
   FormRegistro: {screen: FormularioRegistro},
   SelectAccionView: {screen: SelectAccionVista},
+  MapView: {screen: MapVista},
   FormComplTrabajo: {screen: FormularioCompletarTrabajo},
 });
 
