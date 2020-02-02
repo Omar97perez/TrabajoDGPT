@@ -4,6 +4,12 @@ import {withNavigation} from 'react-navigation';
 import {Icon} from 'react-native-elements';
 
 class SaveButton extends Component {
+  pressCallback = () => {
+    this.props.callback
+      ? this.props.callback()
+      : this.props.navigation.goBack();
+  };
+
   render() {
     return (
       <View
@@ -13,7 +19,7 @@ class SaveButton extends Component {
           justifyContent: 'flex-end',
           paddingRight: 10,
         }}>
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+        <TouchableOpacity onPress={this.pressCallback}>
           <Text style={{fontSize: 15, textAlign: 'center', color: 'white'}}>
             {this.props.text}
           </Text>
