@@ -88,9 +88,9 @@ class FormNewAnimal extends React.Component {
     
     firebase.database().ref('NewAnimal/' + id ).set(
         {
-            NombreCuadrilla: this.state.Quadrille,
-            Lugar: this.state.PlaceSighting,
-            Imagen: this.state.filePath
+          Avistador: this.state.Quadrille,
+          Lugar: this.state.PlaceSighting,
+          Imagen: this.state.filePath
         }
     );
     Alert.alert(
@@ -182,19 +182,31 @@ class FormNewAnimal extends React.Component {
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.Titulo}>Nueva Especie</Text>
-          <Text style={styles.Titulo3}>Nombre Cuadrilla</Text>
+          <Text style={styles.Titulo3}>Avistador</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
-              style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={text => this.onChangeQuadrille(text)}
-              value={Quadrille}
+            style= {
+              width=350,
+              height= 100, 
+              borderColor= 'gray', 
+              borderWidth= 1}  
+            id='Avistador' 
+            placeholder='Escriba su nombre.' 
+            onChangeText={text => this.onChangeQuadrille(text)}
+            value={Quadrille}
           />
           <Text style={styles.Titulo3}>Lugar Avistamiento</Text>
           <Text style={styles.margenTopMenos8}></Text>
           <TextInput
-              style={{ width:300, height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={text => this.onChangePlaceSighting(text)}
-              value={PlaceSighting}
+            style= {
+              width=350,
+              height= 100, 
+              borderColor= 'gray', 
+              borderWidth= 1}  
+            id='LugarAvistamiento' 
+            placeholder='Escriba el Lugar de Avistamiento.' 
+            onChangeText={text => this.onChangePlaceSighting(text)}
+            value={PlaceSighting}
           />
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
