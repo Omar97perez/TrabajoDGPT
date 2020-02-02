@@ -4,6 +4,9 @@ import {StyleSheet, Text, View, Button, Image, TextInput, ScrollView, Alert  } f
 import ImagePicker from 'react-native-image-picker';
 import SaveButton from './Header/SaveButton';
 import {Icon} from 'react-native-elements';
+import SelectLugar from './components/SelectLugar';
+import {StackActions} from 'react-navigation';
+
 
 import {
   Colors,
@@ -40,7 +43,11 @@ class FormNewAnimal extends React.Component {
     this.state = {
       filePath: {},
       Quadrille: '',
-      PlaceSighting: ''
+      PlaceSighting: '',
+      location: {
+        lat: 28.288718720767292,
+        lon: -16.49008141699221,
+      },
     };
   }
 
@@ -89,7 +96,7 @@ class FormNewAnimal extends React.Component {
     firebase.database().ref('NewAnimal/' + id ).set(
         {
           Avistador: this.state.Quadrille,
-          Lugar: this.state.PlaceSighting,
+          Localizacion: this.state.location,
           Imagen: this.state.filePath
         }
     );
@@ -173,6 +180,40 @@ class FormNewAnimal extends React.Component {
       PlaceSighting: PlaceSighting,
     });
   };
+
+  goToActionView = () => {
+    const goToAction = StackActions.push({
+      routeName: 'SelectAccionView',
+      params: {
+        changed: (event, element) => this.setAction(event, element),
+        actions: this.state.actions,
+      },
+    });
+    this.props.navigation.dispatch(goToAction);
+  };
+
+  goToMapView = () => {
+    const goToMap = StackActions.push({
+      routeName: 'MapView',
+      params: {
+        location: this.state.location,
+        markerHandler: this.setLocation,
+      },
+    });
+    this.props.navigation.dispatch(goToMap);
+  };
+  setLocation = coordinate => {
+    let newLocation = {
+      lat: coordinate.latitude,
+      lon: coordinate.longitude,
+    };
+
+    this.setState({
+      location: newLocation,
+    });
+    console.log('Location Changed');
+  };
+
   
   render() {
     const {Quadrille,PlaceSighting} = this.state;
@@ -197,17 +238,11 @@ class FormNewAnimal extends React.Component {
           />
           <Text style={styles.Titulo3}>Lugar Avistamiento</Text>
           <Text style={styles.margenTopMenos8}></Text>
-          <TextInput
-            style= {
-              width=350,
-              height= 100, 
-              borderColor= 'gray', 
-              borderWidth= 1}  
-            id='LugarAvistamiento' 
-            placeholder='Escriba el Lugar de Avistamiento.' 
-            onChangeText={text => this.onChangePlaceSighting(text)}
-            value={PlaceSighting}
-          />
+        </View>
+        <View>
+          <SelectLugar navigation={this.goToMapView} />
+        </View>
+        <View  style={styles.container}>
           <Text style={styles.margenTopMenos8}></Text>
           <Text style={styles.margenTopMenos8}></Text>
           <Button title="Seleccionar Imagen" onPress={this.chooseFile.bind(this)} />
