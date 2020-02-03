@@ -32,6 +32,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SelectAccion from './components/SelectAccion';
+import InicioTabla from './InicioTabla';
 
 class FormularioLogin extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class FormularioLogin extends React.Component {
           // });
           // this.props.navigation.dispatch(resetAction);
           const {navigate} = this.props.navigation;
-          navigate('Inicio', {email:email})
+          navigate('Inicio', {email: email});
         },
         err => {
           console.log(err);
@@ -100,7 +101,7 @@ class FormularioLogin extends React.Component {
 
     return (
       <View style={(styles.bodyBlue, styles.body)}>
-       <View style={(styles.bodyWhite, styles.body)}>
+        <View style={(styles.bodyWhite, styles.body)}>
           <Text style={styles.Titulo}>Iniciar Sesión</Text>
           <Text style={styles.Titulo3}>Usuario</Text>
           <Text style={styles.margenTopMenos8}></Text>
@@ -141,41 +142,41 @@ class InicioProyecto extends React.Component {
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return {
-    headerLeft: () => (
-      <Icon
-      reverse
-      name="menu"
-      color="dodgerblue"
-      style={styles.margenTop20}
-      onPress={params.Toggle}
-    />
-    ),
-    headerTitle: 'AppVistamientos',
-    headerRight: () => (
-      <Icon
-      reverse
-      name="power-settings-new"
-      color="dodgerblue"
-      style={styles.margenTop20}
-      onPress={() =>  params.CloseSesion()}
-    />
-    ),
-    headerStyle: {
-      backgroundColor: 'dodgerblue',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }
-};
+      headerLeft: () => (
+        <Icon
+          reverse
+          name="menu"
+          color="dodgerblue"
+          style={styles.margenTop20}
+          onPress={params.Toggle}
+        />
+      ),
+      headerTitle: 'AppVistamientos',
+      headerRight: () => (
+        <Icon
+          reverse
+          name="power-settings-new"
+          color="dodgerblue"
+          style={styles.margenTop20}
+          onPress={() => params.CloseSesion()}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: 'dodgerblue',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    };
+  };
 
-componentDidMount() {
-  this.props.navigation.setParams({
-    CloseSesion: this.CerrarSesion,
-    Toggle: this.toggle
-  });
-}
+  componentDidMount() {
+    this.props.navigation.setParams({
+      CloseSesion: this.CerrarSesion,
+      Toggle: this.toggle,
+    });
+  }
   //Actualizar registro
   CerrarSesion = () => {
     Alert.alert(
@@ -195,11 +196,10 @@ componentDidMount() {
   }
 
   updateMenuState(isOpen) {
-    this.setState({ isOpen });
+    this.setState({isOpen});
   }
 
-  onMenuItemSelected = item =>
-  {
+  onMenuItemSelected = item => {
     const {navigate} = this.props.navigation;
     navigate(item);
   };
@@ -224,30 +224,16 @@ componentDidMount() {
 
   render() {
     const state = this.state;
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} email={this.state.email} />;
+    const menu = (
+      <Menu onItemSelected={this.onMenuItemSelected} email={this.state.email} />
+    );
 
     return (
       <SideMenu
         menu={menu}
         isOpen={this.state.isOpen}
-        onChange={isOpen => this.updateMenuState(isOpen)}
-      >    
-        <View style={styles.container}>
-          <View style={styles.center}>
-            <Text style={styles.margenTopMenos8}></Text>
-           <Text style={styles.Titulo}>Inicio</Text>
-          </View>
-          <Text style={styles.margenTopMenos8}></Text>
-          <Text style={styles.margenTop10}></Text>
-            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-              <Row
-                data={state.tableHead}
-                style={styles.head}
-                textStyle={styles.text}
-              />
-              <Rows data={state.tableData} textStyle={styles.text} />
-            </Table>
-        </View>    
+        onChange={isOpen => this.updateMenuState(isOpen)}>
+        <InicioTabla />
       </SideMenu>
     );
   }
