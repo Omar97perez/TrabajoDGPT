@@ -211,14 +211,6 @@ class InicioProyecto extends React.Component {
     this.state = {
       email: this.props.navigation.state.params.email,
       isOpen: false,
-      selectedItem: 'FormComplTrabajo',
-      tableHead: ['', 'DIA', 'ACCION', 'LUGAR'],
-      tableData: [
-        ['1', '2', 'Quemar', 'A'],
-        ['a', '3', 'Limpiar', 'B'],
-        ['1', '4', 'Fumigar', 'C'],
-        ['a', '5', 'Desbrozar', 'D'],
-      ],
     };
   }
 
@@ -307,7 +299,6 @@ const MainNavigator = createStackNavigator({
   SelectAccionView: {screen: SelectAccionVista},
   MapView: {screen: MapVista},
   FormComplTrabajo: {screen: FormularioCompletarTrabajo},
-  SelectAccionView: {screen: SelectAccionVista},
 });
 
 const App = createAppContainer(MainNavigator);

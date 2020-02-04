@@ -162,22 +162,20 @@ class FormRegistro extends Component {
 
     return (
       <ScrollView style={styles.mainContainer}>
-        <View>
-          <SelectAccion
-            list={this.state.actions}
-            selected={this.state.selectedAction}
-            loading={loadingActions}
-            changed={this.setAction}
-            navigation={this.goToActionView}
-          />
-          <SelectLugar navigation={this.goToMapView} />
-          <SelectFecha
-            date={date}
-            onTouch={this.showDatePicker}
-            doesShow={show}
-            changed={this.setDate}
-          />
-        </View>
+        <SelectAccion
+          list={this.state.actions}
+          selected={this.state.selectedAction}
+          loading={loadingActions}
+          changed={this.setAction}
+          navigation={this.goToActionView}
+        />
+        <SelectLugar navigation={this.goToMapView} />
+        <SelectFecha
+          date={date}
+          onTouch={this.showDatePicker}
+          doesShow={show}
+          changed={this.setDate}
+        />
       </ScrollView>
     );
   }
