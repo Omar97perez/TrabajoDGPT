@@ -24,19 +24,28 @@ export default class Query extends React.Component {
   }
 
   componentDidMount = () => {
-    let ref = firebase.database().ref('tasks');
+    let ref = firebase.database().ref('records');
     var tasks = [];
     ref.once('value', snapshot => {
       let data = Object.values(snapshot.val());
       data.forEach(item => {
-        let task = [];
-        const {action, date, location, uuid} = item;
-        task.push(action, date, Object.values(location));
-        tasks.push(task);
+        const {uuid} = item;
+        tasks.push(uuid);
       });
-      this.props.onResults(tasks);
+      console.log('terminadas')
+      var unfinishedTasks = [];
+      let uref = firebase.database().ref('tasks');
+      var utasks = [];
+      uref.once('value', snapshot => {
+        let udata = Object.values(snapshot.val());
+        udata.forEach(item => {
+         if (!(tasks.includes(item.uuid)))
+          unfinishedTasks.push(item);
+        })
+      })
+      this.props.onResults(unfinishedTasks);
     });
-  };
+  }
 }
 
 const styles = StyleSheet.create({
