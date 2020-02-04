@@ -6,24 +6,17 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+import {Table, TableWrapper, Row, Cell} from 'react-native-table-component';
 import Constants from 'expo-constants';
-
 import {Icon} from 'react-native-elements';
-
-// You can import from local files
+import {StackActions, withNavigation} from 'react-navigation';
 import Query from './Query/Query';
 
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell,
-} from 'react-native-table-component';
+class InicioTabla extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default class InicioTabla extends React.Component {
   state = {
     results: [],
     tableHead: ['Tarea', 'Fecha', 'Lugar', 'Finalizar'],
@@ -34,23 +27,54 @@ export default class InicioTabla extends React.Component {
     this.setState({results});
   };
 
+  goToMapView = (latitud, longitud) => {
+    const goToMap = StackActions.push({
+      routeName: 'MapView',
+      params: {
+        location: {
+          lat: latitud,
+          lon: longitud,
+        },
+        markerHandler: () => {},
+        setMarker: true,
+      },
+    });
+    this.props.navigation.dispatch(goToMap);
+  };
+
+  goToFinalView = index => {
+    const goToMap = StackActions.push({
+      routeName: 'FormComplTrabajo',
+      params: {
+        task: {
+          location: {
+            lat: this.state.results[index][2].lat,
+            lon: this.state.results[index][2].lon,
+          },
+        },
+      },
+    });
+    this.props.navigation.dispatch(goToMap);
+  };
+
+  button = (cellData, cellIndex, index) => {
+    return cellIndex === 2 ? (
+      <TouchableOpacity
+        onPress={() => this.goToMapView(cellData.lat, cellData.lon)}>
+        <Text style={{color: '#6fc0ff', fontSize: 18, textAlign: 'center'}}>
+          Ir
+        </Text>
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity onPress={() => this.goToFinalView(index)}>
+        <Icon name="arrow-forward" color="#6fc0ff" />
+      </TouchableOpacity>
+    );
+  };
+
   renderResults = () => {
     let results = this.state.results;
     this.state.tableData = [...results];
-
-    const botonUbicacion = (cellData, cellIndex) => {
-      return cellIndex === 2 ? (
-        <TouchableOpacity>
-          <Text style={{color: '#6fc0ff', fontSize: 18, textAlign: 'center'}}>
-            Ir
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity>
-          <Icon name="arrow-forward" color="#6fc0ff" />
-        </TouchableOpacity>
-      );
-    };
 
     return (
       <View style={{height: '100%'}}>
@@ -76,7 +100,7 @@ export default class InicioTabla extends React.Component {
                       key={cellIndex}
                       data={
                         cellIndex === 2 || cellIndex === 3
-                          ? botonUbicacion(cellData, cellIndex)
+                          ? this.button(cellData, cellIndex, index)
                           : cellData
                       }
                       textStyle={styles.text}
@@ -96,7 +120,7 @@ export default class InicioTabla extends React.Component {
       <View style={styles.container}>
         <Query onResults={this.handleResults} />
         {this.state.results.length === 0 ? (
-          <Text>Sin resultados</Text>
+          <Text style={styles.textHeader}>Sin resultados</Text>
         ) : (
           this.renderResults()
         )}
@@ -138,3 +162,5 @@ const styles = StyleSheet.create({
   },
   row: {flexDirection: 'row'},
 });
+
+export default withNavigation(InicioTabla);

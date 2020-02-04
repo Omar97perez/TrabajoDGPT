@@ -15,36 +15,42 @@ export default class Query extends React.Component {
     super(props);
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph} />
-      </View>
-    );
-  }
-
-  componentDidMount = () => {
+  componentDidMount() {
     let ref = firebase.database().ref('records');
     var tasks = [];
+    var unfinishedTasks = [];
     ref.once('value', snapshot => {
       let data = Object.values(snapshot.val());
       data.forEach(item => {
         const {uuid} = item;
         tasks.push(uuid);
       });
-      console.log('terminadas')
-      var unfinishedTasks = [];
+      console.log(tasks);
       let uref = firebase.database().ref('tasks');
-      var utasks = [];
-      uref.once('value', snapshot => {
-        let udata = Object.values(snapshot.val());
-        udata.forEach(item => {
-         if (!(tasks.includes(item.uuid)))
-          unfinishedTasks.push(item);
+      uref
+        .once('value', snapshot => {
+          let udata = Object.values(snapshot.val());
+          udata.forEach(item => {
+            if (!tasks.includes(item.uuid)) {
+              let task = [];
+              const {action, date, location, uuid} = item;
+              task.push(action, date, location, null);
+              unfinishedTasks.push(task);
+            }
+          });
         })
-      })
-      this.props.onResults(unfinishedTasks);
+        .then(result => {
+          this.props.onResults(unfinishedTasks);
+        });
     });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.paragraph} />
+      </View>
+    );
   }
 }
 
