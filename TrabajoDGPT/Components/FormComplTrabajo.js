@@ -87,13 +87,14 @@ class Task_Completed extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-
-    var id = 1;
+    let task = this.props.navigation.getParam('task');
+    var id = task.id;
     firebase
       .database()
       .ref('records/' + id)
       .set({
         TrabajoCompletado: this.state.done,
+        uuid: id,
         Date: Moment(this.state.date).format('DD/MM/YYYY'),
         Plot: this.state.Plot,
         Observation: this.state.Observation,
@@ -111,7 +112,12 @@ class Task_Completed extends Component {
   handleCheck() {
     if (this.state.done == false) {
       this.setState({done: true, ready: '1'});
-      alert('El trabajo de hoy se ha completado');
+      Alert.alert(
+        'Información',
+        'El trabajo de hoy se ha completado.',
+        [{text: 'Cerrar'}],
+        {cancelable: false},
+      );
     } else {
       this.setState({done: false, ready: '0'});
     }

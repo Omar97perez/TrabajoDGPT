@@ -22,8 +22,7 @@ export default class Query extends React.Component {
     ref.once('value', snapshot => {
       let data = Object.values(snapshot.val());
       data.forEach(item => {
-        const {uuid} = item;
-        tasks.push(uuid);
+        tasks.push(item.uuid);
       });
       console.log(tasks);
       let uref = firebase.database().ref('tasks');
@@ -34,7 +33,7 @@ export default class Query extends React.Component {
             if (!tasks.includes(item.uuid)) {
               let task = [];
               const {action, date, location, uuid} = item;
-              task.push(action, date, location, null);
+              task.push(action, date, location, uuid);
               unfinishedTasks.push(task);
             }
           });
@@ -53,6 +52,7 @@ export default class Query extends React.Component {
   }
 
   render() {
+    this.componentDidMount();
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph} />

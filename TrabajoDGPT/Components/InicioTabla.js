@@ -51,6 +51,7 @@ class InicioTabla extends React.Component {
             lat: this.state.results[index][2].lat,
             lon: this.state.results[index][2].lon,
           },
+          id: this.state.results[index][3],
         },
       },
     });
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#ffff',
     padding: 8,
   },
   container2: {

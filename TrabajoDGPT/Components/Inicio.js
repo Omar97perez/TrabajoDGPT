@@ -226,8 +226,9 @@ class InicioProyecto extends React.Component {
         menu={menu}
         isOpen={this.state.isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
-        style={styles.container2}>
-        <ScrollView>
+        style={styles.container2}
+        >
+        <ScrollView style={styles.container2}>
           <InicioTabla />
         </ScrollView>
       </SideMenu>
