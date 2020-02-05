@@ -66,13 +66,6 @@ export default function Menu({ onItemSelected, email }) {
       >
         Nuevo Registro
       </Text>
-
-      <Text
-        onPress={() => onItemSelected('FormComplTrabajo')}
-        style={styles.item}
-      >
-        Trabajo Completado
-      </Text>
     </ScrollView>
   );
 }

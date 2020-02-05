@@ -61,13 +61,20 @@ class InicioTabla extends React.Component {
     return cellIndex === 2 ? (
       <TouchableOpacity
         onPress={() => this.goToMapView(cellData.lat, cellData.lon)}>
-        <Text style={{color: '#6fc0ff', fontSize: 18, textAlign: 'center'}}>
-          Ir
-        </Text>
+        <Icon 
+          name="street-view" 
+          type='font-awesome'
+          color="#343a40" 
+        />
       </TouchableOpacity>
     ) : (
       <TouchableOpacity onPress={() => this.goToFinalView(index)}>
-        <Icon name="arrow-forward" color="#6fc0ff" />
+        <Icon 
+          name="check-circle" 
+          type='font-awesome'
+
+          color="#343a40" 
+        />
       </TouchableOpacity>
     );
   };
@@ -77,41 +84,39 @@ class InicioTabla extends React.Component {
     this.state.tableData = [...results];
 
     return (
-      <View style={{height: '100%'}}>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 42,
-          }}>
-          Inicio
-        </Text>
-        <ScrollView>
-          <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-            <Row
-              data={this.state.tableHead}
-              style={styles.head}
-              textStyle={styles.textHeader}
-            />
-            {this.state.tableData.map((rowData, index) => {
-              return (
-                <TableWrapper style={styles.row}>
-                  {rowData.map((cellData, cellIndex) => (
-                    <Cell
-                      key={cellIndex}
-                      data={
-                        cellIndex === 2 || cellIndex === 3
-                          ? this.button(cellData, cellIndex, index)
-                          : cellData
-                      }
-                      textStyle={styles.text}
-                    />
-                  ))}
-                </TableWrapper>
-              );
-            })}
-          </Table>
-        </ScrollView>
-      </View>
+        <View style={{height: '100%'}}>
+          <View style={{alignItems: 'center',justifyContent: 'center',}}>
+            <Text style={styles.Titulo}>
+              Inicio
+            </Text>
+          </View>
+            <Text style={styles.margenTopMenos8}></Text>
+            <Text style={styles.margenTopMenos8}></Text>
+            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff',}}>
+              <Row
+                data={this.state.tableHead}
+                style={styles.head}
+                textStyle={styles.textHeader}
+              />
+              {this.state.tableData.map((rowData, index) => {
+                return (
+                  <TableWrapper style={styles.row}>
+                    {rowData.map((cellData, cellIndex) => (
+                      <Cell
+                        key={cellIndex}
+                        data={
+                          cellIndex === 2 || cellIndex === 3
+                            ? this.button(cellData, cellIndex, index)
+                            : cellData
+                        }
+                        textStyle={styles.text}
+                      />
+                    ))}
+                  </TableWrapper>
+                );
+              })}
+            </Table>
+        </View>
     );
   };
 
@@ -137,6 +142,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
     padding: 8,
   },
+  container2: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   paragraph: {
     margin: 24,
     fontSize: 18,
@@ -160,7 +169,18 @@ const styles = StyleSheet.create({
   btnText: {
     textAlign: 'center',
   },
-  row: {flexDirection: 'row'},
+  row: {
+    flexDirection: 'row'
+  },
+  Titulo: {
+    color: '#343a40',
+    fontWeight: 'bold',
+    fontSize: 35,
+  },
+  head: {
+    height: 40,
+    backgroundColor: 'dodgerblue',
+  },
 });
 
 export default withNavigation(InicioTabla);

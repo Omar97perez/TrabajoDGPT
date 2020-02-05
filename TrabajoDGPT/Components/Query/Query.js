@@ -40,6 +40,13 @@ export default class Query extends React.Component {
           });
         })
         .then(result => {
+          unfinishedTasks.sort(function (o1,o2) {
+            if (o1[1] > o2[1]) { 
+              return 1;
+            } else {
+              return -1;
+            } 
+          });
           this.props.onResults(unfinishedTasks);
         });
     });

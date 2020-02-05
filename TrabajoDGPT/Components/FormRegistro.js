@@ -95,6 +95,7 @@ class FormRegistro extends Component {
         [{text: 'Cerrar'}],
         {cancelable: false},
       );
+      this.props.navigation.goBack();
     } catch (err) {
       console.log(err);
     }

@@ -28,6 +28,7 @@ import {
   TouchableOpacity,
   Alert,
   Image,
+  ScrollView
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -224,8 +225,11 @@ class InicioProyecto extends React.Component {
       <SideMenu
         menu={menu}
         isOpen={this.state.isOpen}
-        onChange={isOpen => this.updateMenuState(isOpen)}>
-        <InicioTabla />
+        onChange={isOpen => this.updateMenuState(isOpen)}
+        style={styles.container2}>
+        <ScrollView>
+          <InicioTabla />
+        </ScrollView>
       </SideMenu>
     );
   }
@@ -237,6 +241,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  container2: {
+    backgroundColor: '#fff',
   },
   center: {
     alignItems: 'center',
