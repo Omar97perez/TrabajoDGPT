@@ -53,7 +53,7 @@ class FormNewAnimal extends React.Component {
 
   chooseFile = () => {
     var options = {
-      title: 'Selecione una acción',
+      title: 'Seleccione una acción',
       storageOptions: {
         skipBackup: true,
         path: 'images',
