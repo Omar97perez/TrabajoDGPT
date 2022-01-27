@@ -36,7 +36,7 @@
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",
     "rn-nodeify": "^10.2.0",
-    "three": "^0.112.1"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.5",
